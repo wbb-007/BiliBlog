@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BiliBlog - Homepage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&amp;family=Be+Vietnam+Pro:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#004c6a",
+                      "tertiary-container": "#46b557",
+                      "on-error-container": "#93000a",
+                      "on-background": "#1a1b1e",
+                      "surface-container-low": "#f4f3f7",
+                      "primary-container": "#fb7299",
+                      "primary-fixed": "#ffd9e0",
+                      "on-surface-variant": "#564145",
+                      "on-tertiary-fixed": "#002106",
+                      "background": "#faf9fd",
+                      "primary": "#a83159",
+                      "inverse-on-surface": "#f2f0f4",
+                      "secondary": "#00658b",
+                      "on-primary-container": "#710032",
+                      "on-secondary-fixed": "#001e2d",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#dbd9dd",
+                      "tertiary-fixed": "#8bfb93",
+                      "surface-container-high": "#e9e7ec",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#e3e2e6",
+                      "on-primary-fixed": "#3f0019",
+                      "inverse-primary": "#ffb1c2",
+                      "on-secondary-container": "#004b68",
+                      "surface-container": "#efedf1",
+                      "on-secondary": "#ffffff",
+                      "tertiary": "#006e25",
+                      "surface-tint": "#a83159",
+                      "secondary-container": "#33bffe",
+                      "on-error": "#ffffff",
+                      "on-tertiary-container": "#004112",
+                      "tertiary-fixed-dim": "#6fdd7a",
+                      "outline": "#897175",
+                      "secondary-fixed-dim": "#7ed0ff",
+                      "inverse-surface": "#2f3033",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "surface": "#faf9fd",
+                      "on-tertiary-fixed-variant": "#00531a",
+                      "on-tertiary": "#ffffff",
+                      "outline-variant": "#ddbfc4",
+                      "on-primary-fixed-variant": "#881741",
+                      "on-surface": "#1a1b1e",
+                      "surface-bright": "#faf9fd",
+                      "primary-fixed-dim": "#ffb1c2",
+                      "surface-container-highest": "#e3e2e6",
+                      "secondary-fixed": "#c5e7ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "margin-mobile": "12px",
+                      "margin-desktop": "60px",
+                      "md": "16px",
+                      "sm": "12px",
+                      "xl": "32px",
+                      "gutter": "20px",
+                      "base": "4px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Noto Sans", "sans-serif"],
+                      "body-md": ["Noto Sans", "sans-serif"],
+                      "headline-lg-mobile": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                      "display-lg": ["Be Vietnam Pro", "sans-serif"],
+                      "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+                      "label-md": ["Be Vietnam Pro", "sans-serif"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+          font-variation-settings: 'FILL' 1;
+        }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;  
+            overflow: hidden;
+        }
+        
+        /* Custom Scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #dbd9dd;
+            border-radius: 10px;
+        }
+        
+        /* Ambient shadow for cards */
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-lg flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest font-body-md text-body-md docked full-width top-0 shadow-sm flex justify-between items-center w-full px-lg py-sm sticky z-50">
+<div class="flex items-center gap-lg">
+<a class="font-headline-lg text-headline-lg font-black text-primary" href="#">BiliBlog</a>
+<nav class="hidden md:flex gap-md">
+<a class="text-primary border-b-2 border-primary pb-1 font-bold hover:bg-surface-container-low hover:text-primary transition-colors Active: scale-95 duration-100" href="#">Home</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" href="#">Anime</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" href="#">Games</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" href="#">Tech</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors" href="#">Life</a>
+</nav>
+</div>
+<div class="flex items-center gap-md flex-1 max-w-md ml-auto mr-md">
+<div class="relative w-full">
+<input class="w-full bg-surface-container-low border-none rounded-full py-2 pl-4 pr-10 focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-colors" placeholder="Search BiliBlog..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant">search</span>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span></button>
+<button class="bg-primary-container text-on-primary-container font-bold py-2 px-4 rounded-xl hover:scale-[0.98] transition-transform">Upload</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border border-surface-variant cursor-pointer" data-alt="A small circular profile picture of a young smiling person in an anime style, brightly lit with soft pastel colors, characteristic of a cheerful Bilibili user avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR5iwFhvBD7Uy3yGAgekf8lKBHgr5X4ZI28Ya_w3zZl5VvgrK-yzdCBa8htGI_6zh2W7aJL9bF3aL8q-boYvZMysEodCMGQMIfv-UW32s794FNsjuitrwxh1WKqYg4XSYol3vQ7nVujK7c6CYxFEaTRZ-GTApnWuvGCJ168PCLbYHXrwcTOfBEe8QU33z2CcWkRR0MFNbIhYAE_Lbh3L6Oj5hjfoZdbe8mRyFdY92jf_tYsFTWYlxURiXDCE6XtPsboMWdGRjWc_6j"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col gap-md h-screen p-md sticky top-0 overflow-y-auto w-64 bg-surface text-primary font-label-md text-label-md flat no shadows">
+<div class="flex items-center gap-sm mb-md px-md">
+<img alt="Creator Avatar" class="w-10 h-10 rounded-full border-2 border-primary-container" data-alt="A stylized digital illustration of an anime character avatar, close up, vivid colors with a bright pink accent, used as a creator profile picture on a lively modern content platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvBlJgDjDaYxCTaKB-hIO6lT_I90k4Z45L5-JAi7U5zDS3oGVVA6wcENVknKjb-ctcMIrSLsV4q-qNxrfz2YrQdoW0ATG5t1ZEbQH8csWjjBnRNl850fZAVV5T80FWG0BUjtjT_IZOqa-Wfr6DGnZEDtUjT5YYEImtxaZwUavWBG_1xWTwI7tRfNfZpajDsKFbkYIB9mMctu_-OXznj-un3yf3Dfa6kbDjr9J6oe_dRqH8as2HlJiL3JC2Q7PGv5rwi_x6Nsv74OPX"/>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Creator Studio</h3>
+<p class="text-on-surface-variant text-label-md">Level 4 Creator</p>
+</div>
+</div>
+<nav class="flex flex-col gap-sm flex-1">
+<a class="bg-primary-container text-on-primary-container rounded-xl flex items-center gap-xs px-md py-sm hover:bg-surface-container-high transition-all Active: scale-[0.98]" href="#">
+<span class="material-symbols-outlined">home</span> Home
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">trending_up</span> Trending
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">sensors</span> Live
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">tv</span> Anime
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">sports_esports</span> Games
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">memory</span> Tech
+                </a>
+</nav>
+<div class="mt-auto flex flex-col gap-sm">
+<button class="w-full bg-surface-container-high text-primary font-bold py-2 rounded-xl border border-primary-container hover:bg-primary-container hover:text-on-primary-container transition-colors">Go to Studio</button>
+<div class="border-t border-surface-variant my-sm"></div>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+                </a>
+<a class="text-on-surface-variant flex items-center gap-xs px-md py-sm hover:bg-surface-container-high rounded-xl transition-all" href="#">
+<span class="material-symbols-outlined">help</span> Help
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-gutter overflow-y-auto">
+<!-- Hero Carousel Area (Bento-ish layout) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-xl">
+<!-- Main Featured Post -->
+<div class="md:col-span-8 relative rounded-[20px] overflow-hidden ambient-shadow group cursor-pointer aspect-video md:aspect-auto h-full min-h-[300px]">
+<img alt="Anime Hero" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A wide, vibrant digital painting of a futuristic Tokyo street scene in anime style, glowing with neon lights in bright pinks and blues. The scene is energetic and highly detailed, characteristic of a high-quality ACG content platform hero banner." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXM1oiL2KBMZFpZ-PnUi5Jc4PBfTN4uP3uVn8b_l1NLbdjXIGIbAiOIzxJc-Hr3saWjQjcx2WXVU8eJX48RRA5NcMbwdOUpvd1lsdvY0tiUt3MtyCy_HBWtW_gaxBWIEedGk6qBQx0IcnYtc1Q-fUS-WKwNzdb4C63gv2p6oSosQtFc61c6duZZ4BCgfG8n02ToQqf-Bww-ZKgewk8NazvP9bIe7YH9aHy7TRJge9WdtQezBoykq6VJQGFpAKcg4dgny5d5UtDOUEu"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg w-full">
+<span class="bg-primary-container text-white font-label-md px-3 py-1 rounded-full mb-sm inline-block">Featured</span>
+<h1 class="font-headline-lg text-headline-lg text-white mb-2 drop-shadow-md">2024年最值得期待的机甲番推荐：燃爆你的整个夏天！</h1>
+<p class="text-white/80 font-body-md line-clamp-1 mb-md">深度解析即将上映的几部顶级机甲动画作画细节与剧情走向...</p>
+<div class="flex items-center gap-sm text-white/90 font-label-md">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">visibility</span> 1.2M</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">forum</span> 45K</span>
+</div>
+</div>
+</div>
+<!-- Secondary Featured Posts -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Mini feature 1 -->
+<div class="relative rounded-[20px] overflow-hidden ambient-shadow group cursor-pointer flex-1 min-h-[150px]">
+<img alt="Tech Setup" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A sleek, modern desk setup with multiple glowing RGB monitors, a mechanical keyboard, and a futuristic PC case. The lighting is dark but illuminated by vibrant pink and cyan LED lights, creating a high-tech, enthusiastic gamer atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTUQ9DEftYLoQ30_CWTyuBZK9yiZ1spc0M83MRBijL2rLpPsgheYiaprrqeJ9oHqaeQNcsbc4hV3HYFFGGfKq4uqdqiToZsZGkM9sE-SDEzgjwJ2OJdetH0O3rYWkT92u4l0K-nMocxO_ghOWczlTfnRf737Wy6hljg2qJJmym6_cEI9S1ZhJLFbwEwnWhglbpea_3f43cI2Mlc7zHTqh_BsTBaUH2ahzCXP1LhKN0jLYedsVFIaWoJSuPFSRHpElCUqmybO7uylBa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<h2 class="font-headline-md text-headline-md text-white line-clamp-2 leading-tight">桌面改造计划 V2.0：如何打造沉浸式电竞空间</h2>
+</div>
+</div>
+<!-- Mini feature 2 -->
+<div class="relative rounded-[20px] overflow-hidden ambient-shadow group cursor-pointer flex-1 min-h-[150px]">
+<img alt="Lifestyle Food" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A beautifully plated Japanese bento box on a clean, light wooden table, shot from overhead. The food is vibrant and colorful, with soft natural lighting that gives it a warm, inviting, and highly aesthetic lifestyle vlog feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf32hLda_JBpjie_vPrLm7xrPte7re10tcIamm0-_Qb7mPQ9c1MENn3eEsaEiVDIeUkM7vc9FU3nMdlvBZlLYGhbVYpLHW-Ny9_RJbkBHgZ-SSFMSTLTvJVPKHscSvc47cfAdk5k02ivTrLp2DvVlvKVMLwuzGlmDX0oRFeysbwQBWKB9b_9EC5nrdjoBaFW4v3J0cu2OjTq3Lxx_vHW_PLrMq5CfC8bKSCyCgixQ3HQP1-pjV7vXVcF0SVQtncAYvzjtNL0YO-iZ2"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md w-full">
+<h2 class="font-headline-md text-headline-md text-white line-clamp-2 leading-tight">周末一人食：治愈系日式便当制作全纪录</h2>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Grid Section -->
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-background flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-container fill text-[32px]">local_fire_department</span>
+                    Trending Now
+                </h2>
+<button class="text-on-surface-variant hover:text-primary flex items-center gap-xs font-label-md transition-colors">
+<span class="material-symbols-outlined text-[18px]">refresh</span> Refresh
+                </button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-gutter pb-xl">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-[20px] ambient-shadow overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+<div class="relative aspect-video w-full overflow-hidden">
+<img alt="Tech Video Thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up shot of a modern graphics card with glowing RGB lighting inside a sleek PC case. The scene is technical and futuristic, with dark background and vibrant colorful accents, typical of a high-end tech review thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJfc4cvh9VCe3zgkmCLGoq1dPjaTfjpOgGCnZCkSSeDBrwgcik-hF4xHAllzPvI9SK0z-AD_GcBJ-appm9iZoyqhLesfxMKZkCZ__igrWrRUPN4nF8YusfAIGmdPK9Rn9uPZKAVNm-cP0GyO_RRX9ZZk4chQThGuGPUx_2unMka-ojygTZ09MvmzR3EgVghuD7hNf_70EQQcHiSsAIF1jcq_pdgvSzQCIsAIrOImSkf8wuToU5yVgSpNN2K_gR-xIe0etxDPuuEr13"/>
+<span class="absolute bottom-2 right-2 bg-black/70 text-white font-label-md px-2 py-0.5 rounded-md text-[10px]">12:45</span>
+</div>
+<div class="p-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-2 mb-sm group-hover:text-primary transition-colors">全网首发！RTX 5090 深度性能测评：真香还是智商税？</h3>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-label-md">
+<div class="flex items-center gap-xs hover:text-primary transition-colors">
+<img alt="Author Avatar" class="w-6 h-6 rounded-full" data-alt="A small circular avatar showing a young man with glasses holding a gadget, lit with blue tech lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDV-OzxeG7eSrWsLvbG1oaP5poCwjycXtX1FQP1O8YUHXjqQFkQZlR6423ELBBehUExWQ2WqcN8V_QFNEP-FU1Aa1e1MBoXfOaWpIlV9fegci6XeO6H72ZliV_spkglgToaip9bwFfVBGVjS4hEYoVLgNYUtkrscS4byCgXyl8hTT6y-X2TIPl3s_XKxhqGfrLXBhPgtexRXP50g2pDYNpKMjwzROw2wR2gOxbyhVI1EdTDrJNwjM9V6cqSVlh8lV_SJVyuaxEtxQ-q"/>
+<span>极客湾Geekerwan</span>
+</div>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant font-label-md mt-2 text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">play_circle</span> 850K</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 12K</span>
+<span class="flex items-center gap-1 ml-auto"><span class="material-symbols-outlined text-[14px]">more_vert</span></span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-[20px] ambient-shadow overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+<div class="relative aspect-video w-full overflow-hidden">
+<img alt="Anime Thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A vibrant, colorful digital illustration of a magical girl character soaring through a cloudy pastel sky. The art style is high-quality Japanese anime, bright, cheerful, and full of energy, suitable for an episode review thumbnail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi7cBAsQPbEUKTbjNa7urmJRDrf-hKsMOesGl5asX6zRpw11CHoxt_bZl2ychD-W5KrEFAfsxaAw5H-_IAnBKjvRBNtyhI25ioWABojx8bFLQoEtNgfZn9jSclv3AeahkGobN6PV4AxzuQhc-L8QL4j7Sqbf1pnXSYQAXhbQRNPrDyfhBW9SPTtD84FU_1SePNpNAaWk0F6sT1xYEf4-wIVWRe3dmiBkjUMn4Vt0FW5hylkOHbHp8w_pRJgs-blNN0XDkUcfayaurk"/>
+<span class="absolute bottom-2 right-2 bg-black/70 text-white font-label-md px-2 py-0.5 rounded-md text-[10px]">24:10</span>
+</div>
+<div class="p-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-2 mb-sm group-hover:text-primary transition-colors">【神仙作画】四月霸权预定？这新番第一集就让我献上膝盖！</h3>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-label-md">
+<div class="flex items-center gap-xs hover:text-primary transition-colors">
+<img alt="Author Avatar" class="w-6 h-6 rounded-full" data-alt="A small circular avatar of a cute cartoon cat with large eyes and a pink bow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB0IvLds4huCzqygnOQga0ng--daM-hENWShnA8tn7a6L3mit1c-CZMDRKCGC55kd8v5EdDU0YEkIfaNsqXNNeW-_6t9FN8Hqc_iOzHQmPPXZHWb93ndc0Vtu3CyYe5yaAg7_NFfrN6iF_T-mc0N-zNimJ4iRvNCVQahgyeS5CK0BHdL4q2QHH5Em7uOyLHexoLCZcMx27JMO8acSr9M2nnCVtxaCMar57_n5Bk1h7JCjWvSSFkEIf_4KiUPl4H9-NDpnfQrR5XS_z"/>
+<span>泛式</span>
+</div>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant font-label-md mt-2 text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">play_circle</span> 2.1M</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 66K</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest rounded-[20px] ambient-shadow overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+<div class="relative aspect-video w-full overflow-hidden">
+<img alt="Lifestyle Vlog" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A wide angle, cinematic shot of a person standing on a mountain peak at sunrise, looking out over a sea of clouds. The lighting is soft and golden, creating a sense of adventure, freedom, and high-quality travel vlog aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPjIRWXcc8WX_tB3u_rxcuuwKuOY6jKyEp7BObTDeKZZHsIFKg_HpJ6uwZVsFimjqpFyjmCes2W4FCSY_1NB5ZKy07JsK7S6CMPAKz3VVE19RGqgjsLsjx5zHwciSftJfPDIlTKHVNmq6hoTpbvdDVzKI7DueAYoVyOG80wRuGLYwrsVjpX0JnKI_VKlCmRcmtv72_7npl4w-6OslPdVPslWw_R04SP8kyK9S2leB-Tfwxl68slmfevRsWp-F0KZUHusOCl1DbQu1O"/>
+<span class="absolute bottom-2 right-2 bg-black/70 text-white font-label-md px-2 py-0.5 rounded-md text-[10px]">18:30</span>
+</div>
+<div class="p-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-2 mb-sm group-hover:text-primary transition-colors">辞职后我花了三个月环游大西北，寻找真正的自由</h3>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-label-md">
+<div class="flex items-center gap-xs hover:text-primary transition-colors">
+<img alt="Author Avatar" class="w-6 h-6 rounded-full" data-alt="A small circular avatar of a person wearing a sun hat outdoors, shot in bright natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS30Xi_-5ME0DWjfaMEhk2ZgHzraHHcdnb5Teo1nEd2zV1U9OD53Wy7lRfISv-dTRVG92UMSQR37CbxWxpBSLrtxfMG9ME5HPxdd1EV8hy0rYuUJb5iZZ8HwjYey-WfUFJLqSxvPoCuvd6Vp1AyoOpuV6dXi8HWjkWv-dMEyV8ZMsFzkKZnijsKclqCZYAcDR-cDn0JfgZLFIIxdIZ8kyQSlmU6ZcwzS7Zlpdga_sqZaiDIJTqNSa3zhgJ-mkCT7AXYZHM-8hNcf_e"/>
+<span>旅游小小</span>
+</div>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant font-label-md mt-2 text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">play_circle</span> 450K</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 5.2K</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-[20px] ambient-shadow overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer flex flex-col">
+<div class="relative aspect-video w-full overflow-hidden">
+<img alt="Gaming Setup" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A dramatic close-up of hands typing on a high-end mechanical gaming keyboard with vibrant RGB backlighting. The scene is dark, lit only by the colorful keyboard and monitor glare, capturing the intense atmosphere of competitive gaming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2RFuV-Y6AXrn39VbLztF5aq9ueGc0Tk3ULhPNsivL7ZZgH8NiTmybYhnoWm1eMjSKnQUnEWqaRpt_iTVA_beuKDYIuSV4_xZjLMJIahTf6Nk7gn2yWQb7Lms6G_DOcbcvdqejaKC8Y1jknQ7Sgla94solX3zEAI2iy213G3YdxQcBfuHXpil6NtA4CaTmR53MES84ZKT7yVBG7oTQytYHy-kPvXnU_iICGsNSZ0VYtUu-bdHt_2t9GAN0jsnHOX_E877Qva98yzSP"/>
+<span class="absolute bottom-2 right-2 bg-black/70 text-white font-label-md px-2 py-0.5 rounded-md text-[10px]">08:15</span>
+</div>
+<div class="p-sm flex flex-col flex-1">
+<h3 class="font-headline-md text-headline-md text-on-background line-clamp-2 mb-sm group-hover:text-primary transition-colors">客制化键盘入坑指南：教你组装一把属于自己的退烧轴</h3>
+<div class="mt-auto flex items-center justify-between text-on-surface-variant font-label-md">
+<div class="flex items-center gap-xs hover:text-primary transition-colors">
+<img alt="Author Avatar" class="w-6 h-6 rounded-full" data-alt="A small circular avatar of a minimalist line-art logo featuring a keyboard keycap on a bright pink background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmq5BAjukSblMxVsL6RMISuExMcZEk6CeXqzc_wRnrOr5CbRoIF8aZXS8AnFHGpLQSnvnTWBlTcXrB0KYUXpC5eh6v-F6X0C6ElS6qlhKzSFH8BWlkSrMSMcAQxDkS4kPqFu_dWmHKjlu-EjGMSjABE3kVkibc7f7RUA7dRmBb6HMAbty2ow1LRGwbn-N90s5anxpPjiyHgV6aGYy1EyaOvLAmOFE30lqvQUnxEhRPfHe3p2PE-oZfKhcky9l2PRA6x2r9nYFyKQ4o"/>
+<span>键盘侠老王</span>
+</div>
+</div>
+<div class="flex items-center gap-sm text-on-surface-variant font-label-md mt-2 text-[11px]">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">play_circle</span> 320K</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">format_list_bulleted</span> 3.1K</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

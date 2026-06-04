@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BiliBlog - Content Creation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&amp;family=Be+Vietnam+Pro:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004c6a",
+                        "tertiary-container": "#46b557",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1a1b1e",
+                        "surface-container-low": "#f4f3f7",
+                        "primary-container": "#fb7299",
+                        "primary-fixed": "#ffd9e0",
+                        "on-surface-variant": "#564145",
+                        "on-tertiary-fixed": "#002106",
+                        "background": "#faf9fd",
+                        "primary": "#a83159",
+                        "inverse-on-surface": "#f2f0f4",
+                        "secondary": "#00658b",
+                        "on-primary-container": "#710032",
+                        "on-secondary-fixed": "#001e2d",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dbd9dd",
+                        "tertiary-fixed": "#8bfb93",
+                        "surface-container-high": "#e9e7ec",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e3e2e6",
+                        "on-primary-fixed": "#3f0019",
+                        "inverse-primary": "#ffb1c2",
+                        "on-secondary-container": "#004b68",
+                        "surface-container": "#efedf1",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#006e25",
+                        "surface-tint": "#a83159",
+                        "secondary-container": "#33bffe",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#004112",
+                        "tertiary-fixed-dim": "#6fdd7a",
+                        "outline": "#897175",
+                        "secondary-fixed-dim": "#7ed0ff",
+                        "inverse-surface": "#2f3033",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface": "#faf9fd",
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#ddbfc4",
+                        "on-primary-fixed-variant": "#881741",
+                        "on-surface": "#1a1b1e",
+                        "surface-bright": "#faf9fd",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "surface-container-highest": "#e3e2e6",
+                        "secondary-fixed": "#c5e7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "margin-mobile": "12px",
+                        "margin-desktop": "60px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "gutter": "20px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Noto Sans"],
+                        "body-md": ["Noto Sans"],
+                        "headline-lg-mobile": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "display-lg": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "label-md": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- TopNavBar (Simplified) -->
+<header class="bg-surface-container-lowest text-primary font-body-md docked full-width top-0 shadow-sm flex justify-between items-center w-full px-lg py-sm sticky z-50">
+<div class="flex items-center gap-xs">
+<span class="font-headline-lg font-black text-primary">BiliBlog</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant focus:outline-none hover:scale-95 transition-transform">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqY1NYE_DsGmmWLVG3gtimeQlqOo_9dRcLFml4rxHUvKAET48RbJG0TlHiRRLwuqFbI9V0sVJNdoQ_9FQoe18tybvpn4L3YJahHn54z1DEL9r4bQBLg1OLQrU6aSlXEL5-wDJJJfoJD2g9n8XDopaktPOjV9WSui3A8tcyZGdNe13sPha4V0mNx9qXgaiLYymympTuwl0Sbg6absZTE51Hb9xbtFl7VqzgZT30lYCoz-SOth-bmQny9B7kUV0AxL4cXsHfHuM1vN9S"/>
+</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="max-w-4xl mx-auto p-margin-mobile md:p-margin-desktop py-xl">
+<div class="bg-surface-container-lowest rounded-[20px] shadow-[0px_4px_20px_rgba(0,0,0,0.05)] p-lg md:p-xl space-y-lg">
+<div class="border-b border-outline-variant pb-sm">
+<h1 class="font-headline-md text-headline-md text-on-surface">Create New Post</h1>
+</div>
+<!-- Cover Image Upload -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block">Cover Image</label>
+<div class="border-2 border-dashed border-outline-variant rounded-xl p-xl flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors group">
+<span class="material-symbols-outlined text-4xl text-outline mb-xs group-hover:text-primary transition-colors">cloud_upload</span>
+<p class="font-body-md text-on-surface-variant">Click or drag image to upload cover</p>
+<p class="font-label-md text-label-md text-outline mt-1">Recommended: 16:9 ratio, up to 5MB</p>
+</div>
+</div>
+<!-- Title Input -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="post-title">Title</label>
+<input class="w-full bg-surface-container-low rounded-xl px-md py-sm font-body-lg text-body-lg text-on-surface border-2 border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-colors placeholder-outline" id="post-title" placeholder="Enter an engaging title..." type="text"/>
+</div>
+<!-- Category & Tags Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<!-- Category -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="post-category">Category</label>
+<div class="relative">
+<select class="w-full bg-surface-container-low rounded-xl px-md py-sm font-body-md text-on-surface border-2 border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-colors appearance-none pr-lg" id="post-category">
+<option disabled="" selected="" value="">Select a category</option>
+<option value="anime">Anime</option>
+<option value="games">Games</option>
+<option value="tech">Tech</option>
+<option value="life">Life</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-outline pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Tags -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="post-tags">Tags</label>
+<input class="w-full bg-surface-container-low rounded-xl px-md py-sm font-body-md text-on-surface border-2 border-transparent focus:border-primary-container focus:bg-surface-container-lowest focus:outline-none transition-colors placeholder-outline" id="post-tags" placeholder="e.g. review, tutorial (comma separated)" type="text"/>
+</div>
+</div>
+<!-- Content Editor Mockup -->
+<div class="space-y-sm pt-sm border-t border-outline-variant">
+<label class="font-label-md text-label-md text-on-surface-variant block">Content</label>
+<div class="border-2 border-outline-variant rounded-xl overflow-hidden focus-within:border-primary-container transition-colors bg-surface-container-lowest">
+<!-- Toolbar -->
+<div class="bg-surface-container-low border-b border-outline-variant px-md py-xs flex items-center gap-sm flex-wrap">
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">format_bold</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">format_italic</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">format_underlined</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">format_list_bulleted</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">format_list_numbered</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">image</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant transition-colors"><span class="material-symbols-outlined text-[20px]">link</span></button>
+</div>
+<!-- Editor Area -->
+<textarea class="w-full min-h-[300px] p-md font-body-md text-on-surface border-none focus:ring-0 resize-y" placeholder="Write your awesome content here..."></textarea>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex justify-end gap-md pt-lg border-t border-outline-variant mt-lg">
+<button class="px-lg py-sm rounded-xl font-label-md text-label-md border-2 border-secondary-container text-secondary font-bold hover:bg-surface-container-low hover:scale-98 transition-all active:scale-95">
+                    Save Draft
+                </button>
+<button class="px-lg py-sm rounded-xl font-label-md text-label-md bg-primary-container text-on-primary font-bold hover:brightness-110 hover:scale-98 transition-all active:scale-95 flex items-center gap-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                    Publish
+                </button>
+</div>
+</div>
+</main>
+<script>
+        // Simple scale effect for interactive elements (optional enhancement over CSS)
+        document.querySelectorAll('button, .cursor-pointer').forEach(el => {
+            el.addEventListener('mousedown', () => el.style.transform = 'scale(0.98)');
+            el.addEventListener('mouseup', () => el.style.transform = '');
+            el.addEventListener('mouseleave', () => el.style.transform = '');
+        });
+    </script>
+</body></html>

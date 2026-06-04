@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:blogbili_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+  mail:
+    host:
+    port: 587
+    username:
+    password:
+
+blog:
+  admin:
+    email: admin@biliblog.local
+    nickname: Site Admin
+  auth:
+    code-minutes: 10
+    session-days: 7
+  mail:
+    from:
+    debug-return-code: true

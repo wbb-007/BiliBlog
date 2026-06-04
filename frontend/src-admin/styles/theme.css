@@ -1,0 +1,94 @@
+:root {
+  --console-bg: #f4f7fb;
+  --console-surface: #ffffff;
+  --console-surface-soft: #f7f9fc;
+  --console-sidebar: #0f172a;
+  --console-sidebar-soft: #16213a;
+  --console-text: #18212f;
+  --console-text-muted: #667085;
+  --console-line: rgba(15, 23, 42, 0.08);
+  --console-primary: #3b82f6;
+  --console-primary-deep: #1d4ed8;
+  --console-success: #0f9f72;
+  --console-warning: #f59e0b;
+  --console-danger: #ef4444;
+  --console-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  --console-display: 'Sora', sans-serif;
+  --console-body: 'Noto Sans SC', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#admin-app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 1280px;
+  font-family: var(--console-body);
+  color: var(--console-text);
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.12), transparent 24%),
+    radial-gradient(circle at top right, rgba(15, 23, 42, 0.08), transparent 18%),
+    linear-gradient(180deg, #f8fbff, #f4f7fb 24%, #eef3f9 100%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.console-card {
+  border-radius: 24px;
+  background: var(--console-surface);
+  box-shadow: var(--console-shadow);
+}
+
+.console-shell {
+  min-height: 100vh;
+}
+
+.el-button--primary {
+  --el-button-bg-color: var(--console-primary);
+  --el-button-border-color: var(--console-primary);
+  --el-button-hover-bg-color: #60a5fa;
+  --el-button-hover-border-color: #60a5fa;
+  --el-button-active-bg-color: var(--console-primary-deep);
+  --el-button-active-border-color: var(--console-primary-deep);
+}
+
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper {
+  border-radius: 16px;
+  box-shadow: none;
+  background: #f5f7fb;
+}
+
+.el-input__wrapper.is-focus,
+.el-select__wrapper.is-focused,
+.el-textarea__inner:focus {
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.7) inset;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(102, 112, 133, 0.34);
+}

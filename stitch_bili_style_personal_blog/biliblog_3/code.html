@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BiliBlog - User Profile Space</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#004c6a",
+                        "tertiary-container": "#46b557",
+                        "on-error-container": "#93000a",
+                        "on-background": "#1a1b1e",
+                        "surface-container-low": "#f4f3f7",
+                        "primary-container": "#fb7299",
+                        "primary-fixed": "#ffd9e0",
+                        "on-surface-variant": "#564145",
+                        "on-tertiary-fixed": "#002106",
+                        "background": "#faf9fd",
+                        "primary": "#a83159",
+                        "inverse-on-surface": "#f2f0f4",
+                        "secondary": "#00658b",
+                        "on-primary-container": "#710032",
+                        "on-secondary-fixed": "#001e2d",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dbd9dd",
+                        "tertiary-fixed": "#8bfb93",
+                        "surface-container-high": "#e9e7ec",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e3e2e6",
+                        "on-primary-fixed": "#3f0019",
+                        "inverse-primary": "#ffb1c2",
+                        "on-secondary-container": "#004b68",
+                        "surface-container": "#efedf1",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#006e25",
+                        "surface-tint": "#a83159",
+                        "secondary-container": "#33bffe",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#004112",
+                        "tertiary-fixed-dim": "#6fdd7a",
+                        "outline": "#897175",
+                        "secondary-fixed-dim": "#7ed0ff",
+                        "inverse-surface": "#2f3033",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface": "#faf9fd",
+                        "on-tertiary-fixed-variant": "#00531a",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#ddbfc4",
+                        "on-primary-fixed-variant": "#881741",
+                        "on-surface": "#1a1b1e",
+                        "surface-bright": "#faf9fd",
+                        "primary-fixed-dim": "#ffb1c2",
+                        "surface-container-highest": "#e3e2e6",
+                        "secondary-fixed": "#c5e7ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "margin-mobile": "12px",
+                        "margin-desktop": "60px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "gutter": "20px",
+                        "base": "4px",
+                        "xs": "8px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["notoSans"],
+                        "body-md": ["notoSans"],
+                        "headline-lg-mobile": ["beVietnamPro"],
+                        "headline-md": ["beVietnamPro"],
+                        "display-lg": ["beVietnamPro"],
+                        "headline-lg": ["beVietnamPro"],
+                        "label-md": ["beVietnamPro"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'notoSans', sans-serif; background-color: #F1F2F3; }
+        .bili-banner-overlay { background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-inverse-surface shadow-sm dark:shadow-none flex justify-between items-center w-full px-lg py-sm sticky top-0 z-50">
+<div class="flex items-center gap-xl">
+<a class="font-headline-lg text-headline-lg font-black text-primary dark:text-primary-fixed-dim" href="#">BiliBlog</a>
+<div class="hidden md:flex gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant hover:text-primary transition-colors" href="#">Anime</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant hover:text-primary transition-colors" href="#">Games</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant hover:text-primary transition-colors" href="#">Tech</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant hover:text-primary transition-colors" href="#">Life</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<!-- Search placeholder -->
+<div class="hidden lg:flex items-center bg-surface-container-low rounded-xl px-sm py-xs">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md ml-xs w-48 text-on-background" placeholder="Search..." type="text"/>
+</div>
+<button class="bg-primary-container text-on-primary-container px-md py-xs rounded-lg font-label-md hover:bg-primary-fixed-dim transition-colors scale-95 duration-100">Upload</button>
+<div class="flex gap-sm">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border border-surface-variant cursor-pointer" data-alt="A stylized digital illustration of a young female anime-style character with vibrant pink hair and bright blue eyes, wearing casual streetwear. The aesthetic is modern, bright, and colorful, suitable for a youthful online community platform avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC21jAvFIUSpqDOqXyVy04VJRM0jJsrbrQS6bMpIG3dFFidAuCaEewrxt-OpsoLXPnG2S0vlxVqI0qbZIc71oM3rt4Szc66YGqaquRNe7qYm6m0cKZDF8YdEO1Q8D7TNi2a0Xo-QVOREJl9arUcqOBqZYXKT4fWTWlyblSiFgDNC01W8Eugs8gyFqn_2C_4UsyR8uw2cNV0RjwByF1gQjiDjxPHv4l5n3QrrB6LICMJJPqOVsVz9JKaaiLTIM8NIKduw1Ngpm_Ny9d"/>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+<!-- Header Profile Banner -->
+<div class="relative bg-surface-container-lowest rounded-[20px] overflow-hidden shadow-sm mb-lg">
+<!-- Banner Image -->
+<div class="h-48 md:h-64 w-full bg-cover bg-center relative" data-alt="A vibrant, high-energy abstract digital background featuring sweeping curves and fluid geometric shapes in bright pinks, cyans, and purples. The lighting is dynamic and glowing, creating a modern, youthful, and energetic atmosphere reminiscent of contemporary anime and gaming culture art. The composition is expansive and horizontally oriented, perfect for a wide header banner." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHtQV7EpcRbOqWGgdBzzMBg0Sgde_tdF9IB4JwQwhtixdDWCSpvXBQvNAceeczrg2nYWOAxxlw-kQyVQFiUKi6dTVHCS35orLAh0b6mk4VNGuv4CVGnuYmi7YbjJiAzKtPrTOq5DWQTbqSZ0FzjQ51h6MeiM-iiDp8uNZDa6Lqmp1zsABjFRyDPfcR1SS2k5jahWRvSCmKE3HvKPMJqF4AO1fxu80N7-XM04YmarTlG8xmBHa0Dw5ftfMc9k8ieeqkbaOvs5XaaoIy');">
+<div class="absolute inset-0 bili-banner-overlay"></div>
+</div>
+<!-- User Info Overlay -->
+<div class="absolute bottom-0 left-0 w-full p-lg flex flex-col md:flex-row items-end md:items-center justify-between gap-md text-white z-10 translate-y-1/4 md:translate-y-0">
+<div class="flex items-end gap-md">
+<img alt="Avatar" class="w-24 h-24 md:w-32 md:h-32 rounded-full border-4 border-surface-container-lowest shadow-lg translate-y-1/4 md:translate-y-0 bg-surface-container-lowest" data-alt="A stylized digital illustration of a young female anime-style character with vibrant pink hair and bright blue eyes, wearing casual streetwear. The aesthetic is modern, bright, and colorful, suitable for a youthful online community platform avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwVu-LD3kR-v04Cr94lkYXXTcnXl9DK6-JwJOrZZLyaSfkazqtvHSVTI-co5-d2D38KOY4D_H1ACaYqkEooeQs1TT4Bch0gc70J6EkwNOw7bc_Synezf3FzFgVBm-mO3mw_ZfsSIJnwO1cDqMdKS0aTvt3Qzm2rNR06TnVkSOERMJraWUBLxJhDsTflbYHmNKL1fLFaOvCSeprt9VDUHw5B_kC1xLwNbOAscrB7Xp4UEys-qdH156MEKlgMxvodHllG_7j6UvZclVi"/>
+<div class="mb-2 md:mb-0 text-on-surface md:text-white pb-lg md:pb-0">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold drop-shadow-md">Kimi Chan</h1>
+<p class="font-body-md text-body-md text-on-surface-variant md:text-surface-container-low opacity-90">Digital Artist &amp; Anime Enthusiast 🎨✨</p>
+</div>
+</div>
+<!-- Stats & Actions -->
+<div class="flex flex-col items-end gap-sm bg-surface-container-lowest md:bg-transparent p-sm md:p-0 rounded-xl shadow-sm md:shadow-none w-full md:w-auto mt-12 md:mt-0">
+<div class="flex gap-lg text-on-surface md:text-white text-center">
+<div>
+<span class="block font-headline-md text-headline-md font-bold">124K</span>
+<span class="font-label-md text-label-md text-on-surface-variant md:text-surface-container-low opacity-80">Followers</span>
+</div>
+<div>
+<span class="block font-headline-md text-headline-md font-bold">342</span>
+<span class="font-label-md text-label-md text-on-surface-variant md:text-surface-container-low opacity-80">Following</span>
+</div>
+<div>
+<span class="block font-headline-md text-headline-md font-bold">1.2M</span>
+<span class="font-label-md text-label-md text-on-surface-variant md:text-surface-container-low opacity-80">Likes</span>
+</div>
+</div>
+<div class="flex gap-sm w-full md:w-auto justify-end mt-xs">
+<button class="bg-primary-container text-white px-xl py-xs rounded-full font-label-md font-bold hover:bg-primary transition-colors flex-1 md:flex-none">Follow</button>
+<button class="bg-surface-variant text-on-surface-variant px-sm py-xs rounded-full hover:bg-surface-dim transition-colors"><span class="material-symbols-outlined text-sm">more_vert</span></button>
+</div>
+</div>
+</div>
+<!-- Spacer for mobile layout adjustment -->
+<div class="h-24 md:hidden bg-surface-container-lowest"></div>
+</div>
+<!-- Space Navigation Tabs -->
+<div class="bg-surface-container-lowest rounded-[20px] p-base shadow-sm mb-lg flex overflow-x-auto hide-scrollbar">
+<button class="px-lg py-sm font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Home</button>
+<button class="px-lg py-sm font-label-md text-label-md text-primary border-b-2 border-primary-container font-bold whitespace-nowrap">Posts</button>
+<button class="px-lg py-sm font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Favorites</button>
+<button class="px-lg py-sm font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Collections</button>
+<button class="px-lg py-sm font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Settings</button>
+</div>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Content Area (Posts Grid) -->
+<div class="md:col-span-8 flex flex-col gap-lg">
+<!-- Bento Grid of Posts -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+<!-- Post Card 1 (Featured/Large) -->
+<article class="col-span-1 sm:col-span-2 bg-surface-container-lowest rounded-[20px] overflow-hidden shadow-sm hover-lift flex flex-col sm:flex-row h-auto sm:h-64 cursor-pointer">
+<div class="sm:w-1/2 h-48 sm:h-full relative overflow-hidden">
+<img alt="Anime Art" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A highly detailed digital illustration of a futuristic anime cityscape at sunset. The scene features towering, slender skyscrapers bathed in warm golden and vibrant pink light, with flying vehicles streaking across the sky. The art style is crisp, colorful, and energetic, characteristic of high-quality contemporary anime backgrounds." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu8KmxsZjO70vLFZHlGMTVv-PMbCXPeqBEP2Q0_dadP7BmrySC1dJk7SBTJjuOxA50lwjjNPHVUka6zjyLcU8rGsJxx60yng5BK65JKIB1hLyxdMOk1RQJNR9Qay99kFklxYe07ewIlpQaKAN0HT5app564BuPzZRoZRX5uWPWs_MV4-3NCwFk_YQr0AY9-yaJVXlyqojNS5DqVs84agQsR7WPIHpsNZljSLW1vmvYjV0SI-pJTJYfxaleZIFZSA17d9ihxkce_TbL"/>
+<span class="absolute bottom-sm right-sm bg-black/60 text-white font-label-md text-[10px] px-2 py-1 rounded-md">Article</span>
+</div>
+<div class="p-md sm:w-1/2 flex flex-col justify-between">
+<div>
+<div class="flex gap-xs mb-xs">
+<span class="bg-primary-container/10 text-primary-container font-label-md text-[10px] px-2 py-1 rounded-full">Illustration</span>
+<span class="bg-surface-variant text-on-surface-variant font-label-md text-[10px] px-2 py-1 rounded-full">Tutorial</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs line-clamp-2">My Process for Creating Dynamic Anime Backgrounds</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">A deep dive into how I establish perspective, choose color palettes, and add lighting details to make scenes feel alive and vibrant.</p>
+</div>
+<div class="flex justify-between items-center mt-sm pt-sm border-t border-surface-variant">
+<span class="font-label-md text-label-md text-on-surface-variant opacity-70 text-xs">2 days ago</span>
+<div class="flex gap-sm text-on-surface-variant">
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-[14px]">thumb_up</span> 1.2k</span>
+<span class="flex items-center gap-1 text-xs"><span class="material-symbols-outlined text-[14px]">chat_bubble</span> 84</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Post Card 2 -->
+<article class="bg-surface-container-lowest rounded-[20px] p-sm shadow-sm hover-lift flex flex-col cursor-pointer">
+<div class="w-full h-40 relative rounded-xl overflow-hidden mb-sm">
+<img alt="Gaming Setup" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A clean, aesthetic gaming setup desk scene. It features a modern mechanical keyboard, a glowing mouse, and a large monitor displaying a colorful, abstract wallpaper. The lighting is soft and ambient, with subtle pink and blue RGB accents reflecting off the white desk surface, creating a cozy and inviting gamer atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDFOB8ubjBPmqG899GtKMgeHwHcknSjJx18rGEqD9eewRVaA_LIGNlCzMPOoT3Jy0qHMHuDwdJ58MMfBSDy56_zEnWh7QB3RQN_VSwuFBSG1rChqJIGezZu0BciknEq96kuVeJa6_3zPXtJekgDpOMnAzSlw8dPZZ3PnNvoAzW7r0Sb7Qij6PVBu2eVJIGzm_-jBr57twZMy_CuXYJpeHfIchELSl3SNTdoCnIiNY3jr4SlSfs0SH0Ux4b-8ognRchae8QbpkQK7EB"/>
+</div>
+<div class="flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface mb-xs line-clamp-2">Upgrading the Studio: New Gear Review</h3>
+<p class="font-body-md text-label-md text-on-surface-variant line-clamp-2 font-normal">Testing out the new mechanical keyboard switches and drawing tablet display.</p>
+</div>
+<div class="flex justify-between items-center mt-sm">
+<span class="font-label-md text-label-md text-on-surface-variant opacity-70 text-[10px]">1 week ago</span>
+<span class="flex items-center gap-1 text-xs text-on-surface-variant"><span class="material-symbols-outlined text-[14px]">visibility</span> 5.4k</span>
+</div>
+</div>
+</article>
+<!-- Post Card 3 -->
+<article class="bg-surface-container-lowest rounded-[20px] p-sm shadow-sm hover-lift flex flex-col cursor-pointer">
+<div class="w-full h-40 relative rounded-xl overflow-hidden mb-sm">
+<img alt="Anime Figure" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" data-alt="A macro photography shot of a high-quality anime figurine. The figure is intricately detailed, featuring a character in a dynamic pose with flowing stylized clothing. The background is a soft, blurred bokeh of bright pink and cyan lights, highlighting the glossy finish and vivid colors of the collectible figure." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxRo_pl5GN4uq8wPrzCamBqgcGbiPhYTdDMR6htKecA8eINuiJy-eRxrOvnILGWFdlKqW5dItILuhJmZ7aAxep3CisA_ncbbwEbW-GLxHpLFE5jiY8SBpdZwG1ozRo0_M64lC2UEKkafK0NWHSklsxmXnJFf4G-k2QM71ZjieyDbcNyiwq6bBNlkPQpGioEw8g89INFfb3zRiQgO-33_iwOWF5HaK96QVaTzkqe1_A3v4DC7GsM25qDA2auxdhYP5wqMu1__zuTr7a"/>
+</div>
+<div class="flex flex-col flex-grow justify-between">
+<div>
+<h3 class="font-headline-md text-body-lg font-bold text-on-surface mb-xs line-clamp-2">Latest Figure Unboxing &amp; Showcase</h3>
+<p class="font-body-md text-label-md text-on-surface-variant line-clamp-2 font-normal">Finally got my hands on the limited edition release. The details are incredible!</p>
+</div>
+<div class="flex justify-between items-center mt-sm">
+<span class="font-label-md text-label-md text-on-surface-variant opacity-70 text-[10px]">2 weeks ago</span>
+<span class="flex items-center gap-1 text-xs text-on-surface-variant"><span class="material-symbols-outlined text-[14px]">visibility</span> 8.9k</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+<!-- Right Sidebar -->
+<aside class="md:col-span-4 flex flex-col gap-lg">
+<!-- Achievements Card -->
+<div class="bg-surface-container-lowest rounded-[20px] p-lg shadow-sm">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                        Achievements
+                    </h3>
+<div class="grid grid-cols-3 gap-sm">
+<div class="flex flex-col items-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-xs group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-secondary text-lg">local_fire_department</span>
+</div>
+<span class="font-label-md text-[10px] text-center text-on-surface-variant">Hot Creator</span>
+</div>
+<div class="flex flex-col items-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-xs group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-tertiary text-lg">edit_document</span>
+</div>
+<span class="font-label-md text-[10px] text-center text-on-surface-variant">100+ Posts</span>
+</div>
+<div class="flex flex-col items-center group">
+<div class="w-12 h-12 rounded-full bg-surface-container-low flex items-center justify-center mb-xs group-hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-primary-container text-lg">favorite</span>
+</div>
+<span class="font-label-md text-[10px] text-center text-on-surface-variant">Loved</span>
+</div>
+</div>
+</div>
+<!-- Recent Visitors -->
+<div class="bg-surface-container-lowest rounded-[20px] p-lg shadow-sm">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Recent Visitors</h3>
+<span class="font-label-md text-[10px] text-on-surface-variant opacity-70">34 today</span>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low p-xs rounded-xl transition-colors">
+<img alt="Visitor" class="w-8 h-8 rounded-full" data-alt="A close-up portrait of a young man smiling warmly. The aesthetic is clean and modern, suitable for a casual user avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuklrA93eluQVLUq5MGhw1lzD9lz7MEByP7Mb4Oy5podFjVTwpJU_v5Ewiz43GzUF1hdcTIl04-rA5ALRjZf5pAR6UDDczfsdT_N6Oxau10VmTK4sDb4k-MQsMAxRUrNipKmzmbctrXxurL4pAyQLdmyuP36aZ9YdqllEIImYrPXcH3HqhFXAhUI3wz_ehz-aMmGyZTG59wCdZA34BzV7CpA_iRh-LunckjMz9vPGzF8W_z1Oicq3MHrebMN3ZNO8-ouM69JLPKkJZ"/>
+<div class="flex-1">
+<p class="font-label-md text-sm text-on-surface">AlexGamer</p>
+<p class="font-body-md text-[10px] text-on-surface-variant">2 mins ago</p>
+</div>
+</div>
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low p-xs rounded-xl transition-colors">
+<img alt="Visitor" class="w-8 h-8 rounded-full" data-alt="A portrait of a young woman with a neutral expression, looking directly at the camera. Clean lighting, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANlpAf5GL4sd3D0slpZztCiJwdgbssKSKYVVghq---0DbDbZ0EEIMrsn35UJ_OhU_mmJCarr8pmPTuvglezyCczO0xsZ8iM6-uZtB7iQZLIc4ED3EZBnTd2Nr-TVi9vWbxeI4wz7gZ8OsmR6_d-83uhXLN6BLKJS0AyU8DEJetem-zpMVmz21GZN1JZlCRCMuC5s2j4sHcWS5xI327DGKzwo6_ov_eaD7FAIbhPzhLWzMoBWOgdwjQo2akDb5mia6Y2WlydzefCWsK"/>
+<div class="flex-1">
+<p class="font-label-md text-sm text-on-surface">Sakura_Art</p>
+<p class="font-body-md text-[10px] text-on-surface-variant">15 mins ago</p>
+</div>
+</div>
+<div class="flex items-center gap-sm cursor-pointer hover:bg-surface-container-low p-xs rounded-xl transition-colors">
+<img alt="Visitor" class="w-8 h-8 rounded-full" data-alt="A portrait of an older man with glasses, smiling slightly. Professional yet friendly aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBK6XrXzcTp2QTvu_4rnoUQ4ZHVmihOSa5Cqi1-0xJeIKOcmuKfqX1WOYx1q7M643AC-AeTd9CrW5_2aeE9ifmzoFEXnYiCLS18uocPAi7gew1oAIyh_Uqlc9TYYakQUihI1SUvXiphsAYtTijVQnKbh-iROimjSwUJSjfSkaepLbwG4rLqZnqRzCn4uwt9ZCzM7Vt8Q93eZ-5oiS88FVPPCcSTiok8CJJeRemFITpWR6BY_JlQ2o88erMBQ2y7hjm6HakBxnFTupW4"/>
+<div class="flex-1">
+<p class="font-label-md text-sm text-on-surface">TechReviewer</p>
+<p class="font-body-md text-[10px] text-on-surface-variant">1 hour ago</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>
