@@ -358,7 +358,7 @@ public class BlogDataService {
         post.setShares("14");
         post.setReadTime("5 分钟");
         post.setCoverLabel("New Story Drop");
-        post.setCoverStyle(coverStyle(request.coverTone()));
+        post.setCoverStyle(coverStyle(request.coverTone(), request.coverImageUrl()));
         post.setIntro(request.summary().trim());
         post.setAuthorName(currentUser.nickname());
         post.setAuthorTitle("站点管理员 / 博主");
@@ -393,7 +393,7 @@ public class BlogDataService {
 
     public PostSummary updatePost(Long id, AdminPostUpdateRequest request) {
         String categoryName = categoryName(request.category());
-        String coverStyle = coverStyle(request.coverTone());
+        String coverStyle = coverStyle(request.coverTone(), request.coverImageUrl());
         return toSummary(adminService.updatePost(id, request, categoryName, coverStyle));
     }
 
@@ -534,6 +534,16 @@ public class BlogDataService {
         styles.put("neon-night", "linear-gradient(135deg, #1f274f 0%, #6d3ecb 38%, #fb7299 100%)");
         styles.put("mint-wave", "linear-gradient(135deg, #2fc89f 0%, #78e4be 45%, #5ac8fa 100%)");
         return styles.getOrDefault(tone, styles.get("pink-cyan"));
+    }
+
+    public String coverStyle(String tone, String coverImageUrl) {
+        if (coverImageUrl != null && !coverImageUrl.isBlank()) {
+            String safeUrl = coverImageUrl.trim()
+                .replace("\\", "\\\\")
+                .replace("\"", "\\\"");
+            return "url(\"" + safeUrl + "\") center / cover no-repeat";
+        }
+        return coverStyle(tone);
     }
 
     private List<PostSummary> listSummariesByAuthorType(BlogPostEntity.AuthorType authorType) {

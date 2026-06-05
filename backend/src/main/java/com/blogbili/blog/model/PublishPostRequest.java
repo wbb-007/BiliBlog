@@ -13,6 +13,7 @@ public record PublishPostRequest(
     String summary,
     @NotBlank(message = "content is required")
     String content,
-    String coverTone
+    String coverTone,
+    String coverImageUrl
 ) {
 }

@@ -58,7 +58,7 @@ public class BlogPostEntity {
     @Column(nullable = false, length = 80)
     private String coverLabel;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = false, length = 1200)
     private String coverStyle;
 
     @Column(nullable = false, length = 600)

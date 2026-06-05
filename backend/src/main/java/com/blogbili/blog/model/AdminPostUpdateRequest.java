@@ -13,6 +13,7 @@ public record AdminPostUpdateRequest(
     List<String> tags,
     @NotBlank(message = "content is required")
     String content,
-    String coverTone
+    String coverTone,
+    String coverImageUrl
 ) {
 }

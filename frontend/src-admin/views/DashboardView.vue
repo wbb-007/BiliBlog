@@ -80,6 +80,7 @@ const savingAnnouncement = ref(false)
 const savingAlbumPhoto = ref(false)
 const savingLive2d = ref(false)
 const savingProfile = ref(false)
+const uploadingPostCover = ref(false)
 const uploadingAvatar = ref(false)
 const uploadingAlbumPhoto = ref(false)
 const workingUserId = ref(null)
@@ -104,6 +105,7 @@ const postForm = reactive({
   tags: '',
   content: '',
   coverTone: coverTones[0].value,
+  coverImageUrl: '',
 })
 
 const announcementForm = reactive({
@@ -196,6 +198,12 @@ const selectedToneStyle = computed(
     coverTones[0].background,
 )
 
+const selectedPostCoverStyle = computed(() =>
+  postForm.coverImageUrl.trim()
+    ? `url("${cssUrl(postForm.coverImageUrl.trim())}") center / cover no-repeat`
+    : selectedToneStyle.value,
+)
+
 const editorTitle = computed(() => (postForm.id ? '编辑主站文章' : '新建主站文章'))
 
 const filteredPosts = computed(() => {
@@ -255,6 +263,32 @@ function normalizedTags() {
     .split(/[，,]/)
     .map((item) => item.trim())
     .filter(Boolean)
+}
+
+function animeImagePath(index) {
+  return `/backup-images/anime/anime-${String(index + 1).padStart(3, '0')}-${animeAvatarIds[index]}.jpg`
+}
+
+function cssUrl(url) {
+  return url.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
+}
+
+function coverImageFromStyle(style) {
+  if (!style?.startsWith('url(')) {
+    return ''
+  }
+  const match = style.match(/^url\((['"]?)(.*?)\1\)/)
+  return match?.[2] ?? ''
+}
+
+function selectPostGalleryCover(index) {
+  postForm.coverImageUrl = animeImagePath(index)
+}
+
+function useRandomPostCover() {
+  const index = Math.floor(Math.random() * animeAvatarIds.length)
+  selectPostGalleryCover(index)
+  ElMessage.success('已随机选择一张图库封面')
 }
 
 function isCurrentUser(user) {
@@ -356,6 +390,7 @@ function resetPostForm() {
   postForm.tags = ''
   postForm.content = ''
   postForm.coverTone = coverTones[0].value
+  postForm.coverImageUrl = ''
 }
 
 function fillPostForm(post, content) {
@@ -366,6 +401,7 @@ function fillPostForm(post, content) {
   postForm.tags = (post.tags ?? []).join(', ')
   postForm.content = content
   postForm.coverTone = toneFromStyle(post.coverStyle)
+  postForm.coverImageUrl = coverImageFromStyle(post.coverStyle)
 }
 
 function resetAnnouncementForm() {
@@ -517,6 +553,7 @@ async function savePost() {
       tags: normalizedTags(),
       content: postForm.content.trim(),
       coverTone: postForm.coverTone,
+      coverImageUrl: postForm.coverImageUrl.trim(),
     }
 
     if (postForm.id) {
@@ -732,9 +769,23 @@ async function saveProfileSettings() {
   }
 }
 
+async function uploadPostCover(file) {
+  uploadingPostCover.value = true
+  try {
+    const result = await uploadImage(file.raw ?? file)
+    postForm.coverImageUrl = result.url
+    ElMessage.success('封面已上传')
+  } catch (error) {
+    ElMessage.error(readErrorMessage(error, '上传封面失败'))
+  } finally {
+    uploadingPostCover.value = false
+  }
+  return false
+}
+
 function useRandomAnimeAvatar() {
   const index = Math.floor(Math.random() * animeAvatarIds.length)
-  profileForm.avatarUrl = `/backup-images/anime/anime-${String(index + 1).padStart(3, '0')}-${animeAvatarIds[index]}.jpg`
+  profileForm.avatarUrl = animeImagePath(index)
   ElMessage.success('已随机选择一张本地动漫头像，记得保存设置')
 }
 
@@ -1552,6 +1603,51 @@ onMounted(loadAdminData)
               </div>
             </div>
 
+            <div class="editor-grid__full cover-picker">
+              <div class="cover-picker__head">
+                <span class="field-label">文章封面图片</span>
+                <div class="cover-picker__actions">
+                  <el-upload
+                    :before-upload="uploadPostCover"
+                    :show-file-list="false"
+                    accept="image/*"
+                  >
+                    <el-button :loading="uploadingPostCover" round size="small" type="primary">
+                      上传封面
+                    </el-button>
+                  </el-upload>
+                  <el-button round size="small" @click="useRandomPostCover">随机图库</el-button>
+                  <el-button
+                    :disabled="!postForm.coverImageUrl"
+                    round
+                    size="small"
+                    @click="postForm.coverImageUrl = ''"
+                  >
+                    使用氛围封面
+                  </el-button>
+                </div>
+              </div>
+
+              <el-input
+                v-model="postForm.coverImageUrl"
+                clearable
+                placeholder="封面图片地址，也可以上传或从下方图库选择"
+              />
+
+              <div class="cover-gallery-grid">
+                <button
+                  v-for="(_, index) in animeAvatarIds"
+                  :key="animeAvatarIds[index]"
+                  :class="{ 'cover-gallery-item--active': postForm.coverImageUrl === animeImagePath(index) }"
+                  class="cover-gallery-item"
+                  type="button"
+                  @click="selectPostGalleryCover(index)"
+                >
+                  <img :src="animeImagePath(index)" alt="" loading="lazy" />
+                </button>
+              </div>
+            </div>
+
             <MarkdownEditor
               v-model="postForm.content"
               class="editor-grid__full"
@@ -1578,7 +1674,7 @@ onMounted(loadAdminData)
               </div>
             </div>
 
-            <div class="preview-cover" :style="{ background: selectedToneStyle }">
+            <div class="preview-cover" :style="{ background: selectedPostCoverStyle }">
               <div class="preview-cover__meta">
                 <span class="preview-chip">{{ selectedCategoryName }}</span>
                 <span class="preview-chip">主站专栏</span>
@@ -2035,6 +2131,64 @@ onMounted(loadAdminData)
   height: 84px;
   margin-bottom: 10px;
   border-radius: 14px;
+}
+
+.cover-picker {
+  display: grid;
+  gap: 12px;
+}
+
+.cover-picker__head,
+.cover-picker__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cover-picker__head {
+  justify-content: space-between;
+}
+
+.cover-picker__head .field-label {
+  margin-bottom: 0;
+}
+
+.cover-picker__actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.cover-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(86px, 1fr));
+  gap: 10px;
+  max-height: 290px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 18px;
+  background: rgba(248, 250, 252, 0.76);
+}
+
+.cover-gallery-item {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: #e2e8f0;
+  cursor: pointer;
+}
+
+.cover-gallery-item--active {
+  border-color: #409eff;
+  box-shadow: 0 10px 24px rgba(64, 158, 255, 0.24);
+}
+
+.cover-gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .editor-actions {
