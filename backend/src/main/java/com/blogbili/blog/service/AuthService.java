@@ -15,7 +15,9 @@ import com.blogbili.blog.repository.UserRepository;
 import com.blogbili.blog.repository.VerificationCodeRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,15 +31,13 @@ public class AuthService {
 
     private static final String PURPOSE_REGISTER = "REGISTER";
     private static final String PURPOSE_RESET_PASSWORD = "RESET_PASSWORD";
+    private static final String DEFAULT_ADMIN_EMAIL = "admin@biliblog.local";
 
     private final UserRepository userRepository;
     private final VerificationCodeRepository verificationCodeRepository;
     private final AuthSessionRepository authSessionRepository;
     private final EmailCodeSender emailCodeSender;
     private final PasswordCodec passwordCodec;
-
-    @Value("${blog.admin.email}")
-    private String adminEmail;
 
     @Value("${blog.admin.nickname}")
     private String adminNickname;
@@ -69,12 +69,12 @@ public class AuthService {
     public SendCodeResponse sendCode(EmailCodeRequest request) {
         String normalizedEmail = normalizeEmail(request.email());
         String purpose = normalizePurpose(request.purpose());
-        ensureAdminEmail(normalizedEmail);
         authSessionRepository.deleteByExpiresAtBefore(LocalDateTime.now());
         String code = String.format("%06d", ThreadLocalRandom.current().nextInt(0, 1_000_000));
         UserEntity existingUser = userRepository.findByEmail(normalizedEmail).orElse(null);
 
         if (PURPOSE_REGISTER.equals(purpose)) {
+            ensureAdminRegisterAllowed(normalizedEmail, existingUser);
             if (existingUser != null && existingUser.getRole() != UserEntity.Role.ADMIN) {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "当前系统仅允许管理员账号注册");
             }
@@ -116,20 +116,21 @@ public class AuthService {
     @Transactional
     public AuthResponse register(RegisterRequest request) {
         String normalizedEmail = normalizeEmail(request.email());
-        ensureAdminEmail(normalizedEmail);
+        UserEntity existingUser = userRepository.findByEmail(normalizedEmail).orElse(null);
+        ensureAdminRegisterAllowed(normalizedEmail, existingUser);
 
         validateCode(normalizedEmail, request.code(), PURPOSE_REGISTER);
         String rawPassword = validatePassword(request.password());
         UserEntity user = userRepository.findByEmail(normalizedEmail)
             .map(existing -> updateAdminUser(existing, request.nickname(), rawPassword))
-            .orElseGet(() -> createAdminUser(normalizedEmail, request.nickname(), rawPassword));
+            .orElseGet(() -> rebindDefaultAdmin(normalizedEmail, request.nickname(), rawPassword)
+                .orElseGet(() -> createAdminUser(normalizedEmail, request.nickname(), rawPassword)));
         return createSessionResponse(user, "管理员注册并登录成功");
     }
 
     @Transactional
     public AuthResponse login(LoginRequest request) {
         String normalizedEmail = normalizeEmail(request.email());
-        ensureAdminEmail(normalizedEmail);
         String rawPassword = request.password();
         UserEntity user = userRepository.findByEmail(normalizedEmail)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "邮箱或密码错误"));
@@ -150,7 +151,6 @@ public class AuthService {
     @Transactional
     public AuthResponse resetPassword(ResetPasswordRequest request) {
         String normalizedEmail = normalizeEmail(request.email());
-        ensureAdminEmail(normalizedEmail);
         UserEntity user = userRepository.findByEmail(normalizedEmail)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "管理员账号尚未初始化，请先注册"));
 
@@ -235,6 +235,13 @@ public class AuthService {
         return userRepository.save(user);
     }
 
+    private Optional<UserEntity> rebindDefaultAdmin(String email, String nickname, String rawPassword) {
+        return rebindableDefaultAdmin().map(user -> {
+            user.setEmail(email);
+            return updateAdminUser(user, nickname, rawPassword);
+        });
+    }
+
     private AuthResponse createSessionResponse(UserEntity user, String message) {
         user.setLastLoginAt(LocalDateTime.now());
         userRepository.save(user);
@@ -264,8 +271,8 @@ public class AuthService {
         return purpose.trim().toUpperCase(Locale.ROOT);
     }
 
-    private boolean isAdminEmail(String email) {
-        return normalizeEmail(email).equals(normalizeEmail(adminEmail));
+    private boolean isDefaultAdminEmail(String email) {
+        return normalizeEmail(email).equals(DEFAULT_ADMIN_EMAIL);
     }
 
     private String resolveNickname(String nickname) {
@@ -276,10 +283,37 @@ public class AuthService {
         return adminNickname;
     }
 
-    private void ensureAdminEmail(String email) {
-        if (!isAdminEmail(email)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "当前系统仅开放管理员账号认证");
+    private void ensureAdminRegisterAllowed(String email, UserEntity existingUser) {
+        if (existingUser != null) {
+            if (existingUser.getRole() == UserEntity.Role.ADMIN) {
+                return;
+            }
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "当前系统仅允许管理员账号注册");
         }
+
+        List<UserEntity> admins = adminUsers();
+        if (admins.isEmpty() || rebindableDefaultAdmin(admins).isPresent()) {
+            return;
+        }
+
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "管理员邮箱已初始化，请使用现有管理员邮箱登录或找回密码");
+    }
+
+    private Optional<UserEntity> rebindableDefaultAdmin() {
+        return rebindableDefaultAdmin(adminUsers());
+    }
+
+    private Optional<UserEntity> rebindableDefaultAdmin(List<UserEntity> admins) {
+        if (admins.size() != 1) {
+            return Optional.empty();
+        }
+
+        UserEntity admin = admins.get(0);
+        return isDefaultAdminEmail(admin.getEmail()) ? Optional.of(admin) : Optional.empty();
+    }
+
+    private List<UserEntity> adminUsers() {
+        return userRepository.findByRoleOrderByIdAsc(UserEntity.Role.ADMIN);
     }
 
     private void validateCode(String email, String code, String purpose) {
