@@ -1,28 +1,22 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue'
-import { EditPen, Opportunity, User } from '@element-plus/icons-vue'
-import { useRoute, useRouter } from 'vue-router'
+import { Opportunity, User } from '@element-plus/icons-vue'
+import { useRoute } from 'vue-router'
 import AppHeader from '../components/AppHeader.vue'
-import AuthDialog from '../components/AuthDialog.vue'
 import PostCard from '../components/PostCard.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 import { fetchCategories, fetchCommunity } from '../api/blog'
-import { authState, isAdminUser } from '../stores/auth'
 
 const route = useRoute()
-const router = useRouter()
 const loading = ref(true)
 const community = ref({ posts: [], metrics: [] })
 const categories = ref([])
-const showAuthDialog = ref(false)
 
 const filters = reactive({
   category: 'all',
 })
 
 const keyword = computed(() => route.query.keyword?.toString().trim() ?? '')
-const currentUser = computed(() => authState.user)
-const isAdmin = computed(() => isAdminUser())
 
 const filteredPosts = computed(() => {
   return community.value.posts.filter((post) => {
@@ -51,15 +45,6 @@ async function loadCommunity() {
   loading.value = false
 }
 
-function goPublish() {
-  if (!currentUser.value) {
-    showAuthDialog.value = true
-    return
-  }
-
-  router.push({ name: isAdmin.value ? 'studio' : 'community-studio' })
-}
-
 onMounted(loadCommunity)
 </script>
 
@@ -76,13 +61,8 @@ onMounted(loadCommunity)
         <section class="surface-card community-hero">
           <SectionHeading
             title="投稿广场"
-            description="普通用户的文章集中展示在这里，主站首页继续只保留博主和管理员内容。"
-          >
-            <el-button round type="primary" @click="goPublish">
-              <el-icon><EditPen /></el-icon>
-              {{ currentUser ? '去投稿' : '登录后投稿' }}
-            </el-button>
-          </SectionHeading>
+            description="这里保留历史社区内容展示。公网版本不开放前台注册和投稿，站点内容统一由管理员后台维护。"
+          />
 
           <div class="community-metrics">
             <article v-for="metric in community.metrics" :key="metric.label">
@@ -136,8 +116,8 @@ onMounted(loadCommunity)
               </SectionHeading>
               <div class="rule-list">
                 <article>
-                  <strong>普通用户发文进入投稿广场</strong>
-                  <p>不会直接出现在主页，主页只展示管理员文章。</p>
+                  <strong>前台只读展示</strong>
+                  <p>线上访客可以浏览文章和评论，不需要注册登录。</p>
                 </article>
                 <article>
                   <strong>评论和详情页仍然共享</strong>
@@ -145,7 +125,7 @@ onMounted(loadCommunity)
                 </article>
                 <article>
                   <strong>管理员改用独立控制台</strong>
-                  <p>这样博客主站和后台管理会彻底分离，前台体验也更干净。</p>
+                  <p>文章发布、相册上传和站点设置都在后台完成。</p>
                 </article>
               </div>
             </section>
@@ -154,7 +134,6 @@ onMounted(loadCommunity)
       </template>
     </el-skeleton>
   </main>
-  <AuthDialog v-model="showAuthDialog" />
 </template>
 
 <style scoped>

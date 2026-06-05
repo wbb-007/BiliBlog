@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: '/studio',
       name: 'studio',
-      component: () => import('../views/StudioView.vue'),
+      redirect: { name: 'home' },
     },
     {
       path: '/community',
@@ -56,7 +56,7 @@ const router = createRouter({
     {
       path: '/community/studio',
       name: 'community-studio',
-      component: () => import('../views/CommunityStudioView.vue'),
+      redirect: { name: 'home' },
     },
   ],
   scrollBehavior() {
