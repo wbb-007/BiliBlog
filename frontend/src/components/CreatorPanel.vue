@@ -11,7 +11,10 @@ defineProps({
   <section class="creator-panel">
     <div class="creator-panel__banner" :style="{ background: creator.bannerStyle }"></div>
     <div class="creator-panel__body">
-      <div class="creator-panel__avatar">{{ creator.avatarLabel }}</div>
+      <div class="creator-panel__avatar">
+        <img v-if="creator.avatarUrl" :src="creator.avatarUrl" :alt="creator.name" />
+        <span v-else>{{ creator.avatarLabel }}</span>
+      </div>
       <div class="creator-panel__headline">
         <h3>{{ creator.name }}</h3>
         <p>{{ creator.title }}</p>
@@ -48,8 +51,8 @@ defineProps({
 <style scoped>
 .creator-panel {
   overflow: hidden;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  background: var(--surface-container-lowest);
   box-shadow: var(--soft-shadow);
 }
 
@@ -68,13 +71,20 @@ defineProps({
   justify-content: center;
   width: 72px;
   height: 72px;
+  overflow: hidden;
   border: 4px solid white;
-  border-radius: 24px;
+  border-radius: 50%;
   background: linear-gradient(135deg, #fb7299, #5ac8fa);
   color: white;
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 800;
+}
+
+.creator-panel__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .creator-panel__headline {
@@ -100,8 +110,8 @@ defineProps({
 
 .creator-panel__stats div {
   padding: 14px 12px;
-  border-radius: 18px;
-  background: var(--surface-soft);
+  border-radius: 12px;
+  background: var(--surface-container-low);
   text-align: center;
 }
 

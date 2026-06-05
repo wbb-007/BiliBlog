@@ -4,6 +4,7 @@ import com.blogbili.blog.model.CategoryDto;
 import com.blogbili.blog.model.CommentCreateRequest;
 import com.blogbili.blog.model.CommentDto;
 import com.blogbili.blog.model.CommunityResponse;
+import com.blogbili.blog.model.GardenResponse;
 import com.blogbili.blog.model.HomeResponse;
 import com.blogbili.blog.model.PostDetailResponse;
 import com.blogbili.blog.model.ProfileResponse;
@@ -39,6 +40,11 @@ public class BlogController {
     @GetMapping("/community")
     public CommunityResponse community() {
         return blogDataService.getCommunity();
+    }
+
+    @GetMapping("/garden")
+    public GardenResponse garden() {
+        return blogDataService.getGarden();
     }
 
     @GetMapping("/categories")

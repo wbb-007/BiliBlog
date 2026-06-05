@@ -1,16 +1,24 @@
 package com.blogbili.blog.controller;
 
+import com.blogbili.blog.model.AdminAlbumPhotoDto;
+import com.blogbili.blog.model.AdminAlbumPhotoRequest;
 import com.blogbili.blog.model.AdminAnnouncementDto;
 import com.blogbili.blog.model.AdminAnnouncementRequest;
 import com.blogbili.blog.model.AdminOverviewResponse;
 import com.blogbili.blog.model.AdminPostUpdateRequest;
 import com.blogbili.blog.model.AdminUserDto;
 import com.blogbili.blog.model.AdminUserUpdateRequest;
+import com.blogbili.blog.model.Live2dSettingsDto;
+import com.blogbili.blog.model.Live2dSettingsRequest;
 import com.blogbili.blog.model.PostSummary;
+import com.blogbili.blog.model.ProfileSettingsDto;
+import com.blogbili.blog.model.ProfileSettingsRequest;
 import com.blogbili.blog.service.CurrentUser;
 import com.blogbili.blog.service.AdminService;
 import com.blogbili.blog.service.AuthService;
 import com.blogbili.blog.service.BlogDataService;
+import com.blogbili.blog.service.Live2dSettingsService;
+import com.blogbili.blog.service.ProfileSettingsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -30,15 +38,21 @@ public class AdminController {
     private final AuthService authService;
     private final AdminService adminService;
     private final BlogDataService blogDataService;
+    private final Live2dSettingsService live2dSettingsService;
+    private final ProfileSettingsService profileSettingsService;
 
     public AdminController(
         AuthService authService,
         AdminService adminService,
-        BlogDataService blogDataService
+        BlogDataService blogDataService,
+        Live2dSettingsService live2dSettingsService,
+        ProfileSettingsService profileSettingsService
     ) {
         this.authService = authService;
         this.adminService = adminService;
         this.blogDataService = blogDataService;
+        this.live2dSettingsService = live2dSettingsService;
+        this.profileSettingsService = profileSettingsService;
     }
 
     @GetMapping("/overview")
@@ -120,5 +134,66 @@ public class AdminController {
     public void deleteAnnouncement(HttpServletRequest request, @PathVariable Long id) {
         authService.requireAdmin(request);
         adminService.deleteAnnouncement(id);
+    }
+
+    @GetMapping("/album/photos")
+    public List<AdminAlbumPhotoDto> albumPhotos(HttpServletRequest request) {
+        authService.requireAdmin(request);
+        return adminService.albumPhotos();
+    }
+
+    @PostMapping("/album/photos")
+    public AdminAlbumPhotoDto createAlbumPhoto(
+        HttpServletRequest request,
+        @Valid @RequestBody AdminAlbumPhotoRequest payload
+    ) {
+        authService.requireAdmin(request);
+        return adminService.createAlbumPhoto(payload);
+    }
+
+    @PutMapping("/album/photos/{id}")
+    public AdminAlbumPhotoDto updateAlbumPhoto(
+        HttpServletRequest request,
+        @PathVariable Long id,
+        @Valid @RequestBody AdminAlbumPhotoRequest payload
+    ) {
+        authService.requireAdmin(request);
+        return adminService.updateAlbumPhoto(id, payload);
+    }
+
+    @DeleteMapping("/album/photos/{id}")
+    public void deleteAlbumPhoto(HttpServletRequest request, @PathVariable Long id) {
+        authService.requireAdmin(request);
+        adminService.deleteAlbumPhoto(id);
+    }
+
+    @GetMapping("/live2d")
+    public Live2dSettingsDto live2d(HttpServletRequest request) {
+        authService.requireAdmin(request);
+        return live2dSettingsService.getSettings();
+    }
+
+    @PutMapping("/live2d")
+    public Live2dSettingsDto updateLive2d(
+        HttpServletRequest request,
+        @Valid @RequestBody Live2dSettingsRequest payload
+    ) {
+        authService.requireAdmin(request);
+        return live2dSettingsService.updateSettings(payload);
+    }
+
+    @GetMapping("/profile")
+    public ProfileSettingsDto profile(HttpServletRequest request) {
+        authService.requireAdmin(request);
+        return profileSettingsService.getSettings();
+    }
+
+    @PutMapping("/profile")
+    public ProfileSettingsDto updateProfile(
+        HttpServletRequest request,
+        @RequestBody ProfileSettingsRequest payload
+    ) {
+        authService.requireAdmin(request);
+        return profileSettingsService.updateSettings(payload);
     }
 }

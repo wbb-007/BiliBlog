@@ -47,7 +47,10 @@ function openPost() {
 
       <div class="post-card__meta">
         <div class="post-card__author">
-          <span class="post-card__author-badge">{{ post.authorInitial }}</span>
+          <span class="post-card__author-badge">
+            <img v-if="post.authorAvatarUrl" :src="post.authorAvatarUrl" :alt="post.author" />
+            <span v-else>{{ post.authorInitial }}</span>
+          </span>
           <div>
             <strong>{{ post.author }}</strong>
             <span>{{ post.publishedAt }}</span>
@@ -67,18 +70,18 @@ function openPost() {
 <style scoped>
 .post-card {
   display: grid;
-  gap: 18px;
-  padding: 16px;
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.96);
+  gap: 14px;
+  padding: 12px;
+  border-radius: 20px;
+  background: var(--surface-container-lowest);
   box-shadow: var(--soft-shadow);
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .post-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 24px 52px rgba(251, 114, 153, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 .post-card--wide {
@@ -89,7 +92,7 @@ function openPost() {
   position: relative;
   min-height: 190px;
   overflow: hidden;
-  border-radius: 22px;
+  border-radius: 12px;
   padding: 18px;
   color: white;
 }
@@ -176,8 +179,14 @@ function openPost() {
 
 h3 {
   margin: 0;
-  font-size: 24px;
+  font-family: var(--font-display);
+  font-size: 20px;
   line-height: 1.3;
+  transition: color 0.18s ease;
+}
+
+.post-card:hover h3 {
+  color: var(--brand-pink-deep);
 }
 
 p {
@@ -193,7 +202,7 @@ p {
   gap: 16px;
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px solid rgba(20, 23, 29, 0.08);
+  border-top: 1px solid var(--surface-variant);
 }
 
 .post-card__author {
@@ -208,10 +217,17 @@ p {
   justify-content: center;
   width: 44px;
   height: 44px;
+  overflow: hidden;
   border-radius: 50%;
   background: linear-gradient(135deg, #fb7299, #5ac8fa);
   color: white;
   font-weight: 800;
+}
+
+.post-card__author-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .post-card__author strong,

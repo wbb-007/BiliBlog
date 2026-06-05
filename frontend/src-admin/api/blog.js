@@ -53,6 +53,16 @@ export async function fetchCategories() {
   return data
 }
 
+export async function fetchLive2dSettings() {
+  const { data } = await client.get('/admin/live2d')
+  return data
+}
+
+export async function fetchProfileSettings() {
+  const { data } = await client.get('/admin/profile')
+  return data
+}
+
 export async function fetchPost(id) {
   const { data } = await client.get(`/posts/${id}`)
   return data
@@ -60,6 +70,17 @@ export async function fetchPost(id) {
 
 export async function publishPost(payload) {
   const { data } = await client.post('/posts', payload)
+  return data
+}
+
+export async function uploadImage(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const { data } = await client.post('/uploads/images', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   return data
 }
 
@@ -113,4 +134,33 @@ export async function updateAdminAnnouncement(id, payload) {
 
 export async function deleteAdminAnnouncement(id) {
   await client.delete(`/admin/announcements/${id}`)
+}
+
+export async function fetchAdminAlbumPhotos() {
+  const { data } = await client.get('/admin/album/photos')
+  return data
+}
+
+export async function createAdminAlbumPhoto(payload) {
+  const { data } = await client.post('/admin/album/photos', payload)
+  return data
+}
+
+export async function updateAdminAlbumPhoto(id, payload) {
+  const { data } = await client.put(`/admin/album/photos/${id}`, payload)
+  return data
+}
+
+export async function deleteAdminAlbumPhoto(id) {
+  await client.delete(`/admin/album/photos/${id}`)
+}
+
+export async function updateLive2dSettings(payload) {
+  const { data } = await client.put('/admin/live2d', payload)
+  return data
+}
+
+export async function updateProfileSettings(payload) {
+  const { data } = await client.put('/admin/profile', payload)
+  return data
 }

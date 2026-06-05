@@ -36,7 +36,14 @@ onMounted(loadProfile)
 
           <div class="profile-banner__content">
             <div class="profile-banner__identity">
-              <div class="profile-banner__avatar">{{ profileData.profile.avatarLabel }}</div>
+              <div class="profile-banner__avatar">
+                <img
+                  v-if="profileData.profile.avatarUrl"
+                  :src="profileData.profile.avatarUrl"
+                  :alt="profileData.profile.name"
+                />
+                <span v-else>{{ profileData.profile.avatarLabel }}</span>
+              </div>
               <div>
                 <h1>{{ profileData.profile.name }}</h1>
                 <p>{{ profileData.profile.headline }}</p>
@@ -180,6 +187,7 @@ onMounted(loadProfile)
   justify-content: center;
   width: 112px;
   height: 112px;
+  overflow: hidden;
   border: 6px solid white;
   border-radius: 34px;
   background: linear-gradient(135deg, #fb7299, #5ac8fa);
@@ -188,6 +196,12 @@ onMounted(loadProfile)
   font-size: 40px;
   font-weight: 800;
   box-shadow: var(--soft-shadow);
+}
+
+.profile-banner__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .profile-banner__identity h1 {

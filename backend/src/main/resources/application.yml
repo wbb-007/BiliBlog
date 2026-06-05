@@ -5,7 +5,7 @@ spring:
     url: ${DB_URL:jdbc:mysql://${DB_HOST:127.0.0.1}:${DB_PORT:3306}/${DB_NAME:blogbili}?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true}
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${DB_USERNAME:blogbili_app}
-    password: ${DB_PASSWORD:Blogbili@2026!}
+    password: ${DB_PASSWORD:}
   jpa:
     hibernate:
       ddl-auto: ${JPA_DDL_AUTO:update}
@@ -31,6 +31,10 @@ spring:
           connectiontimeout: ${MAIL_SMTP_CONNECTION_TIMEOUT:5000}
           timeout: ${MAIL_SMTP_TIMEOUT:5000}
           writetimeout: ${MAIL_SMTP_WRITE_TIMEOUT:5000}
+  servlet:
+    multipart:
+      max-file-size: ${BLOG_UPLOAD_MAX_FILE_SIZE:10MB}
+      max-request-size: ${BLOG_UPLOAD_MAX_REQUEST_SIZE:12MB}
 
 server:
   port: ${SERVER_PORT:8080}
@@ -41,10 +45,12 @@ blog:
   admin:
     email: ${BLOG_ADMIN_EMAIL:admin@biliblog.local}
     nickname: ${BLOG_ADMIN_NICKNAME:Site Admin}
-    initial-password: ${BLOG_ADMIN_INITIAL_PASSWORD:Admin@123456}
+    initial-password: ${BLOG_ADMIN_INITIAL_PASSWORD:ChangeMe@123456}
   auth:
     code-minutes: ${BLOG_AUTH_CODE_MINUTES:10}
     session-days: ${BLOG_AUTH_SESSION_DAYS:7}
   mail:
     from: ${BLOG_MAIL_FROM:${MAIL_USERNAME:}}
     debug-return-code: ${BLOG_MAIL_DEBUG_RETURN_CODE:false}
+  upload:
+    dir: ${BLOG_UPLOAD_DIR:uploads}

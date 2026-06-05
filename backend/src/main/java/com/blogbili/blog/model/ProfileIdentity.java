@@ -7,6 +7,7 @@ public record ProfileIdentity(
     String headline,
     String bio,
     String avatarLabel,
+    String avatarUrl,
     String bannerStyle,
     List<Metric> stats,
     List<String> tags,

@@ -9,6 +9,8 @@ public record HomeResponse(
     List<PostSummary> posts,
     CreatorProfile creator,
     List<Announcement> announcements,
-    List<Metric> trends
+    List<Metric> trends,
+    List<LatestCommentDto> latestComments,
+    List<TagStatDto> tagCloud
 ) {
 }

@@ -7,6 +7,7 @@ public record CreatorProfile(
     String title,
     String bio,
     String avatarLabel,
+    String avatarUrl,
     String bannerStyle,
     String followers,
     String likes,

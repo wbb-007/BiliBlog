@@ -34,6 +34,11 @@ export async function fetchCommunity() {
   return data
 }
 
+export async function fetchGarden() {
+  const { data } = await client.get('/garden')
+  return data
+}
+
 export async function fetchPost(id) {
   const { data } = await client.get(`/posts/${id}`)
   return data
@@ -59,8 +64,24 @@ export async function fetchCategories() {
   return data
 }
 
+export async function fetchLive2dSettings() {
+  const { data } = await client.get('/site/live2d')
+  return data
+}
+
 export async function publishPost(payload) {
   const { data } = await client.post('/posts', payload)
+  return data
+}
+
+export async function uploadImage(file) {
+  const formData = new FormData()
+  formData.append('file', file)
+  const { data } = await client.post('/uploads/images', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
   return data
 }
 

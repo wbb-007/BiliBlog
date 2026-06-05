@@ -4,15 +4,20 @@
   --brand-cyan: #5ac8fa;
   --brand-cyan-deep: #00658b;
   --brand-lime: #58c86f;
-  --page-bg: #f7f8fc;
-  --surface: rgba(255, 255, 255, 0.95);
-  --surface-soft: #f3f5fb;
-  --text-primary: #171b22;
+  --page-bg: #faf9fd;
+  --surface: #faf9fd;
+  --surface-soft: #f4f3f7;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f4f3f7;
+  --surface-container: #efedf1;
+  --surface-container-high: #e9e7ec;
+  --surface-variant: #e3e2e6;
+  --text-primary: #1a1b1e;
   --text-muted: #697585;
-  --line-soft: rgba(23, 27, 34, 0.08);
+  --line-soft: rgba(26, 27, 30, 0.08);
   --font-display: 'Be Vietnam Pro', sans-serif;
   --font-body: 'Noto Sans SC', sans-serif;
-  --soft-shadow: 0 20px 45px rgba(39, 53, 88, 0.08);
+  --soft-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -30,10 +35,7 @@ body {
   min-width: 320px;
   font-family: var(--font-body);
   color: var(--text-primary);
-  background:
-    radial-gradient(circle at top left, rgba(251, 114, 153, 0.14), transparent 28%),
-    radial-gradient(circle at top right, rgba(90, 200, 250, 0.18), transparent 22%),
-    linear-gradient(180deg, #fff8fb, #f5f7fb 22%, #f7f8fc 100%);
+  background: var(--page-bg);
 }
 
 a {
@@ -53,15 +55,88 @@ select {
 }
 
 .page-shell {
+  position: relative;
+  z-index: 1;
   max-width: 1320px;
   margin: 0 auto;
   padding: 28px 20px 64px;
 }
 
 .surface-card {
-  border-radius: 28px;
-  background: var(--surface);
+  border-radius: 20px;
+  background: var(--surface-container-lowest);
+  border: 0;
   box-shadow: var(--soft-shadow);
+  animation: bili-rise-in 0.72s ease both;
+}
+
+.post-card,
+.creator-panel,
+.garden-panel,
+.sidebar-panel,
+.aside-panel,
+.profile-tabs,
+.profile-side .side-panel {
+  animation: bili-rise-in 0.72s ease both;
+}
+
+.post-card:nth-child(2n),
+.notice-item:nth-child(2n),
+.photo-card:nth-child(2n),
+.tool-card:nth-child(2n) {
+  animation-delay: 0.06s;
+}
+
+.post-card:nth-child(3n),
+.notice-item:nth-child(3n),
+.photo-card:nth-child(3n),
+.tool-card:nth-child(3n) {
+  animation-delay: 0.12s;
+}
+
+.home-hero__main,
+.detail-cover,
+.profile-banner__cover,
+.garden-hero__panel {
+  background-size: 180% 180%;
+  animation: bili-gradient-flow 14s ease-in-out infinite;
+}
+
+.home-hero__main::after,
+.detail-cover::after,
+.garden-hero__panel::after {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 42%;
+  pointer-events: none;
+  content: '';
+  background:
+    radial-gradient(circle at 18% 78%, rgba(255, 255, 255, 0.28) 0 8px, transparent 9px),
+    radial-gradient(circle at 72% 66%, rgba(255, 255, 255, 0.18) 0 14px, transparent 15px),
+    radial-gradient(circle at 48% 88%, rgba(255, 255, 255, 0.16) 0 10px, transparent 11px);
+  animation: bili-bubbles-up 7s linear infinite;
+}
+
+.icon-badge,
+.garden-hero__card,
+.live2d-widget,
+.profile-banner__avatar,
+.creator-panel__avatar {
+  animation: bili-soft-float 4.8s ease-in-out infinite;
+}
+
+.nav-pill,
+.mini-chip,
+.tag-cloud__item,
+.tool-card button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.nav-pill:hover,
+.mini-chip:hover,
+.tag-cloud__item:hover,
+.tool-card button:hover {
+  transform: translateY(-2px);
 }
 
 .two-column {
@@ -89,9 +164,9 @@ select {
 }
 
 .ghost-panel {
-  border-radius: 24px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.66));
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.65);
+  border-radius: 20px;
+  background: var(--surface-container-lowest);
+  box-shadow: var(--soft-shadow);
 }
 
 .el-button--primary {
@@ -106,9 +181,9 @@ select {
 .el-input__wrapper,
 .el-textarea__inner,
 .el-select__wrapper {
-  border-radius: 18px;
+  border-radius: 12px;
   box-shadow: none;
-  background: #f4f6fb;
+  background: var(--surface-container-low);
 }
 
 .el-input__wrapper.is-focus,
@@ -135,5 +210,83 @@ select {
 @media (max-width: 720px) {
   .page-shell {
     padding: 20px 14px 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes bili-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bili-gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes bili-bg-drift {
+  0% {
+    background-position: 0% 0%, 100% 0%, 0 0;
+  }
+
+  50% {
+    background-position: 18% 8%, 82% 12%, 0 0;
+  }
+
+  100% {
+    background-position: 0% 0%, 100% 0%, 0 0;
+  }
+}
+
+@keyframes bili-bubbles-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-78px);
+  }
+}
+
+@keyframes bili-soft-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
   }
 }

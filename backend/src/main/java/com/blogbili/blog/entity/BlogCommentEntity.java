@@ -34,6 +34,15 @@ public class BlogCommentEntity {
     @Column(nullable = false, length = 20)
     private String userInitial;
 
+    @Column(length = 2000)
+    private String userAvatarUrl;
+
+    @Column(length = 80)
+    private String ipAddress;
+
+    @Column(length = 40)
+    private String ipLocation;
+
     @Column(nullable = false, length = 1000)
     private String content;
 
@@ -83,6 +92,30 @@ public class BlogCommentEntity {
 
     public void setUserInitial(String userInitial) {
         this.userInitial = userInitial;
+    }
+
+    public String getUserAvatarUrl() {
+        return userAvatarUrl;
+    }
+
+    public void setUserAvatarUrl(String userAvatarUrl) {
+        this.userAvatarUrl = userAvatarUrl;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getIpLocation() {
+        return ipLocation;
+    }
+
+    public void setIpLocation(String ipLocation) {
+        this.ipLocation = ipLocation;
     }
 
     public String getContent() {

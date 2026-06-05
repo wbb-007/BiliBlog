@@ -1,8 +1,11 @@
 package com.blogbili.blog.service;
 
 import com.blogbili.blog.entity.AnnouncementEntity;
+import com.blogbili.blog.entity.AlbumPhotoEntity;
 import com.blogbili.blog.entity.BlogPostEntity;
 import com.blogbili.blog.entity.UserEntity;
+import com.blogbili.blog.model.AdminAlbumPhotoDto;
+import com.blogbili.blog.model.AdminAlbumPhotoRequest;
 import com.blogbili.blog.model.AdminAnnouncementDto;
 import com.blogbili.blog.model.AdminAnnouncementRequest;
 import com.blogbili.blog.model.AdminOverviewResponse;
@@ -13,6 +16,7 @@ import com.blogbili.blog.model.Metric;
 import com.blogbili.blog.model.PostSummary;
 import com.blogbili.blog.model.UserSessionDto;
 import com.blogbili.blog.repository.AuthSessionRepository;
+import com.blogbili.blog.repository.AlbumPhotoRepository;
 import com.blogbili.blog.repository.AnnouncementRepository;
 import com.blogbili.blog.repository.BlogCommentRepository;
 import com.blogbili.blog.repository.BlogPostRepository;
@@ -34,19 +38,22 @@ public class AdminService {
     private final BlogCommentRepository blogCommentRepository;
     private final AnnouncementRepository announcementRepository;
     private final AuthSessionRepository authSessionRepository;
+    private final AlbumPhotoRepository albumPhotoRepository;
 
     public AdminService(
         BlogPostRepository blogPostRepository,
         UserRepository userRepository,
         BlogCommentRepository blogCommentRepository,
         AnnouncementRepository announcementRepository,
-        AuthSessionRepository authSessionRepository
+        AuthSessionRepository authSessionRepository,
+        AlbumPhotoRepository albumPhotoRepository
     ) {
         this.blogPostRepository = blogPostRepository;
         this.userRepository = userRepository;
         this.blogCommentRepository = blogCommentRepository;
         this.announcementRepository = announcementRepository;
         this.authSessionRepository = authSessionRepository;
+        this.albumPhotoRepository = albumPhotoRepository;
     }
 
     public AdminOverviewResponse overview(List<PostSummary> posts) {
@@ -169,6 +176,35 @@ public class AdminService {
             .toList();
     }
 
+    public List<AdminAlbumPhotoDto> albumPhotos() {
+        return albumPhotoRepository.findAllByOrderByCreatedAtDesc().stream()
+            .map(this::toAlbumPhotoDto)
+            .toList();
+    }
+
+    @Transactional
+    public AdminAlbumPhotoDto createAlbumPhoto(AdminAlbumPhotoRequest request) {
+        AlbumPhotoEntity photo = new AlbumPhotoEntity();
+        fillAlbumPhoto(photo, request);
+        return toAlbumPhotoDto(albumPhotoRepository.save(photo));
+    }
+
+    @Transactional
+    public AdminAlbumPhotoDto updateAlbumPhoto(Long id, AdminAlbumPhotoRequest request) {
+        AlbumPhotoEntity photo = albumPhotoRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "相册图片不存在"));
+        fillAlbumPhoto(photo, request);
+        return toAlbumPhotoDto(albumPhotoRepository.save(photo));
+    }
+
+    @Transactional
+    public void deleteAlbumPhoto(Long id) {
+        if (!albumPhotoRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "相册图片不存在");
+        }
+        albumPhotoRepository.deleteById(id);
+    }
+
     @Transactional
     public AdminAnnouncementDto createAnnouncement(AdminAnnouncementRequest request) {
         AnnouncementEntity announcement = new AnnouncementEntity();
@@ -240,6 +276,29 @@ public class AdminService {
             entity.getId(),
             entity.getTitle(),
             entity.getContent(),
+            entity.isActive(),
+            entity.getCreatedAt().format(DATE_TIME_FORMATTER)
+        );
+    }
+
+    private void fillAlbumPhoto(AlbumPhotoEntity photo, AdminAlbumPhotoRequest request) {
+        photo.setTitle(request.title().trim());
+        photo.setLocation(request.location().trim());
+        photo.setImageUrl(request.imageUrl().trim());
+        photo.setCaption(request.caption().trim());
+        String color = request.color() == null ? "" : request.color().trim();
+        photo.setColor(color.isBlank() ? "linear-gradient(135deg, #fb7299 0%, #5ac8fa 100%)" : color);
+        photo.setActive(request.active());
+    }
+
+    private AdminAlbumPhotoDto toAlbumPhotoDto(AlbumPhotoEntity entity) {
+        return new AdminAlbumPhotoDto(
+            entity.getId(),
+            entity.getTitle(),
+            entity.getLocation(),
+            entity.getImageUrl(),
+            entity.getCaption(),
+            entity.getColor(),
             entity.isActive(),
             entity.getCreatedAt().format(DATE_TIME_FORMATTER)
         );

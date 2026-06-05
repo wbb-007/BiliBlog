@@ -5,8 +5,9 @@ import { ElMessage } from 'element-plus'
 import { EditPen, Picture } from '@element-plus/icons-vue'
 import AppHeader from '../components/AppHeader.vue'
 import AuthDialog from '../components/AuthDialog.vue'
+import MarkdownEditor from '../components/MarkdownEditor.vue'
 import SectionHeading from '../components/SectionHeading.vue'
-import { fetchCategories, publishPost } from '../api/blog'
+import { fetchCategories, publishPost, uploadImage } from '../api/blog'
 import { authState, isAdminUser } from '../stores/auth'
 import { openAdminConsole } from '../utils/adminConsole'
 
@@ -170,11 +171,11 @@ onMounted(loadCategories)
             </el-form-item>
 
             <el-form-item class="submit-grid__full" label="正文" prop="content">
-              <el-input
+              <MarkdownEditor
                 v-model="form.content"
-                :rows="14"
-                type="textarea"
-                placeholder="支持普通段落、## 小标题和 - 列表。"
+                :upload-image="uploadImage"
+                height="520px"
+                placeholder="支持 Markdown：## 小标题、> 引用、- 列表。可以直接粘贴图片，上传后会自动插入图片链接。"
               />
             </el-form-item>
           </div>

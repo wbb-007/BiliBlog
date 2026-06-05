@@ -17,6 +17,7 @@ public record PostSummary(
     String coverStyle,
     List<String> tags,
     String author,
-    String authorInitial
+    String authorInitial,
+    String authorAvatarUrl
 ) {
 }

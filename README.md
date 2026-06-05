@@ -49,7 +49,7 @@
 - 默认数据库名：`blogbili`
 - 默认端口：`3306`
 - 默认用户名：`blogbili_app`
-- 默认密码：`Blogbili@2026!`
+- 密码：通过环境变量 `DB_PASSWORD` 配置，不建议写进代码仓库
 - JDBC URL：
   `jdbc:mysql://127.0.0.1:3306/blogbili?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true`
 
@@ -60,7 +60,7 @@
 ## 登录与管理员
 
 - 默认管理员邮箱：`admin@biliblog.local`
-- 默认管理员初始密码：`Admin@123456`
+- 默认管理员初始密码：通过环境变量 `BLOG_ADMIN_INITIAL_PASSWORD` 配置，首次上线请使用强密码
 - 独立控制台开发地址：`http://localhost:5174/admin.html`
 - 博客前台不再内嵌后台页面，管理员文章发布和用户管理都放到独立控制台中
 
@@ -81,7 +81,7 @@ DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_NAME=blogbili
 DB_USERNAME=blogbili_app
-DB_PASSWORD=Blogbili@2026!
+DB_PASSWORD=your_strong_database_password
 ```
 
 如果你用的是 VSCode 的 MySQL 插件，连接信息可以这样填：
@@ -89,7 +89,7 @@ DB_PASSWORD=Blogbili@2026!
 - Host：`127.0.0.1`
 - Port：`3306`
 - User：`blogbili_app`
-- Password：`Blogbili@2026!`
+- Password：填写你设置的 `DB_PASSWORD`
 - Database：`blogbili`
 
 ## 邮箱验证码说明

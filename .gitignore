@@ -2,6 +2,8 @@ frontend/node_modules/
 frontend/dist/
 backend/target/
 backend/data/
+backend/uploads/
+.run-logs/
 .idea/
 .vscode/
 *.log

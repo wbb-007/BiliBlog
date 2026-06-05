@@ -23,6 +23,28 @@ const commentForm = reactive({
   content: '',
 })
 const displayNickname = computed(() => commentForm.nickname.trim() || '游客')
+const commentPreviewAvatar = computed(() => animeAvatarFromSeed(displayNickname.value))
+
+function animeAvatarFromSeed(seed) {
+  const imageIds = [
+    43078, 43074, 43077, 43073, 43062, 43067, 43066, 42872, 42968, 42280,
+    24695, 27301, 25942, 33959, 32331, 38682, 36855, 34883, 39059, 43068,
+    43039, 43032, 42990, 43038, 43037, 43036, 43030, 43079, 43031, 42989,
+    42948, 43014, 43013, 43011, 43010, 43009, 43008, 43003, 42999, 42991,
+    42987, 42949, 42965, 42967, 42946, 42966, 42962, 42937, 42954, 42944,
+    42947, 42945, 42963, 42932, 42929, 42873, 42856, 42855, 42938, 42925,
+    42924, 42889, 42833, 42743, 42676, 42903, 42901, 42898, 42897, 42896,
+    42894, 42893, 42888, 42955, 42871, 42869, 42864, 42961, 42837, 42836,
+    42834, 42831, 42757, 42721, 42707, 42680, 42677, 42668, 42657, 42615,
+    42592, 42573, 42784, 42782, 42780, 42779, 42778, 42776, 42775, 42774,
+  ]
+  let hash = 0
+  for (const char of seed) {
+    hash = ((hash << 5) - hash + char.charCodeAt(0)) | 0
+  }
+  const index = Math.abs(hash) % imageIds.length
+  return `/backup-images/anime/anime-${String(index + 1).padStart(3, '0')}-${imageIds[index]}.jpg`
+}
 
 async function loadPost() {
   loading.value = true
@@ -87,7 +109,14 @@ watch(() => route.params.id, loadPost)
             </div>
 
             <section class="detail-author">
-              <div class="detail-author__badge">{{ detail.post.author.avatarLabel }}</div>
+              <div class="detail-author__badge">
+                <img
+                  v-if="detail.post.author.avatarUrl"
+                  :src="detail.post.author.avatarUrl"
+                  :alt="detail.post.author.name"
+                />
+                <span v-else>{{ detail.post.author.avatarLabel }}</span>
+              </div>
               <div class="detail-author__copy">
                 <strong>{{ detail.post.author.name }}</strong>
                 <span>{{ detail.post.author.title }}</span>
@@ -107,6 +136,10 @@ watch(() => route.params.id, loadPost)
                 <ul v-else-if="block.type === 'list'">
                   <li v-for="item in block.items" :key="item">{{ item }}</li>
                 </ul>
+                <figure v-else-if="block.type === 'image'" class="detail-image">
+                  <img :src="block.items?.[0]" :alt="block.content || '文章图片'" />
+                  <figcaption v-if="block.content">{{ block.content }}</figcaption>
+                </figure>
               </template>
             </section>
 
@@ -136,12 +169,12 @@ watch(() => route.params.id, loadPost)
               />
               <div class="comment-editor">
                 <div class="comment-editor__badge">
-                  {{ displayNickname.slice(0, 1) }}
+                  <img :src="commentPreviewAvatar" :alt="`${displayNickname} 头像预览`" />
                 </div>
                 <div class="comment-editor__body">
                   <div class="comment-editor__head">
                     <strong>{{ displayNickname }}</strong>
-                    <span>填写昵称后即可直接发表评论</span>
+                    <span>填写昵称后即可直接发表评论，头像会从本地动漫素材库自动生成</span>
                   </div>
                   <el-input
                     v-model="commentForm.nickname"
@@ -167,14 +200,39 @@ watch(() => route.params.id, loadPost)
                 </div>
               </div>
               <div class="comment-list">
-                <article v-for="comment in detail.comments" :key="comment.id" class="comment-item">
-                  <div class="comment-avatar">{{ comment.authorInitial }}</div>
+                <article
+                  v-for="(comment, index) in detail.comments"
+                  :key="comment.id"
+                  class="comment-item"
+                >
+                  <div class="comment-avatar">
+                    <img
+                      v-if="comment.authorAvatarUrl"
+                      :src="comment.authorAvatarUrl"
+                      :alt="comment.author"
+                    />
+                    <span v-else>{{ comment.authorInitial }}</span>
+                  </div>
                   <div class="comment-body">
                     <div class="comment-body__head">
                       <strong>{{ comment.author }}</strong>
+                      <span class="comment-floor">#{{ detail.comments.length - index }}</span>
+                    </div>
+                    <div class="comment-body__meta">
                       <span>{{ comment.time }}</span>
+                      <span>{{ comment.ipLocation || 'IP属地：未知' }}</span>
                     </div>
                     <p>{{ comment.content }}</p>
+                    <div class="comment-body__actions">
+                      <button type="button">
+                        <el-icon><Star /></el-icon>
+                        <span>点赞</span>
+                      </button>
+                      <button type="button">
+                        <el-icon><ChatDotRound /></el-icon>
+                        <span>回复</span>
+                      </button>
+                    </div>
                   </div>
                 </article>
               </div>
@@ -287,12 +345,19 @@ watch(() => route.params.id, loadPost)
   justify-content: center;
   width: 68px;
   height: 68px;
+  overflow: hidden;
   border-radius: 22px;
   background: linear-gradient(135deg, #fb7299, #5ac8fa);
   color: white;
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 800;
+}
+
+.detail-author__badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .detail-author__copy strong,
@@ -344,6 +409,26 @@ watch(() => route.params.id, loadPost)
   padding-left: 22px;
 }
 
+.detail-image {
+  margin: 24px 0;
+}
+
+.detail-image img {
+  display: block;
+  width: 100%;
+  max-height: 680px;
+  object-fit: contain;
+  border-radius: 22px;
+  background: var(--surface-soft);
+}
+
+.detail-image figcaption {
+  margin-top: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+  text-align: center;
+}
+
 .detail-actions {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -373,21 +458,29 @@ watch(() => route.params.id, loadPost)
   grid-template-columns: auto 1fr;
   gap: 14px;
   margin-bottom: 16px;
-  padding: 18px;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(251, 114, 153, 0.08), rgba(90, 200, 250, 0.08));
+  padding: 18px 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: transparent;
 }
 
 .comment-editor__badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 18px;
+  width: 54px;
+  height: 54px;
+  overflow: hidden;
+  border-radius: 50%;
   background: linear-gradient(135deg, #fb7299, #5ac8fa);
   color: white;
   font-weight: 800;
+}
+
+.comment-editor__badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .comment-editor__body {
@@ -414,28 +507,35 @@ watch(() => route.params.id, loadPost)
 
 .comment-list {
   display: grid;
-  gap: 14px;
+  gap: 0;
 }
 
 .comment-item {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 14px;
-  padding: 18px;
-  border-radius: 22px;
-  background: var(--surface-soft);
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line-soft);
+  background: transparent;
 }
 
 .comment-avatar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 18px;
+  width: 52px;
+  height: 52px;
+  overflow: hidden;
+  border-radius: 50%;
   background: linear-gradient(135deg, rgba(251, 114, 153, 0.8), rgba(90, 200, 250, 0.85));
   color: white;
   font-weight: 800;
+}
+
+.comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .comment-body__head {
@@ -445,13 +545,58 @@ watch(() => route.params.id, loadPost)
   gap: 12px;
 }
 
-.comment-body__head span,
+.comment-body__head strong {
+  color: #18191c;
+  font-size: 15px;
+}
+
+.comment-floor,
+.comment-body__meta,
 .comment-body p {
   color: var(--text-muted);
 }
 
+.comment-floor {
+  flex: 0 0 auto;
+  font-size: 12px;
+}
+
+.comment-body__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
 .comment-body p {
   margin: 10px 0 0;
+  color: #18191c;
+  line-height: 1.8;
+}
+
+.comment-body__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.comment-body__actions button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.18s ease;
+}
+
+.comment-body__actions button:hover {
+  color: var(--brand-pink-deep);
 }
 
 .detail-aside {
